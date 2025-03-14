@@ -33,12 +33,12 @@ tags:
 - [nodeJs Install](https://www.cnblogs.com/48xz/p/16146141.html)
 
 验证Git环境：  
-```powershell
+``` bash
 git -v
 ```
 
 验证NodeJs环境：  
-```powershell
+``` bash
 node -v
 ```
 
@@ -66,17 +66,17 @@ https://github.com/username/username.github.io
 ### 安装Hexo
 
 打开 PowerShell，运行以下命令，安装hexo
-```powershell
+``` bash
 npm install hexo -g
 ```
 
 在本地新建一个空文件夹，在空文件夹，右键打开PowerShell，执行以下代码，初始化Hexo： 
-```powershell
+``` bash
 hexo init
 ```
 
 本地预览：
-```powershell
+``` bash
 hexo g #生成静态页面
 hexo s #启动服务器
 ```
@@ -86,7 +86,7 @@ hexo s #启动服务器
 ### 部署Github
 
 克隆上面准备的仓库到本地。  
-```
+``` bash
 git clone git@github.com:zrongqing/zrongqing.github.io.git
 ```
 这是我的仓库地址，修改你们自己的就好
@@ -94,12 +94,12 @@ git clone git@github.com:zrongqing/zrongqing.github.io.git
 将 hexo init 生成的文件直接复制到克隆下的仓库里面。记得Commit，将hexo保存到main分支。
 
 在此文件夹，右键打开powershell，执行以下命令
-```powershell
+``` bash
 npm install hexo-deployer-git --save
 ```
 
 打开文件夹中的_config.yml文件，拉倒最后，填写deploy模块
-```
+``` bash
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
@@ -111,7 +111,8 @@ deploy:
 hexo部署的时候，会以git部署到指定的repository里面的指定branch
 
 执行发布
-```powershell
+
+``` bash
 hexo d
 ```
 
