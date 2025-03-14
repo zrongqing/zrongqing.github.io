@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -25,13 +25,13 @@ jobs:
       env:
           HEXO_DEPLOY_PRI: ${{secrets.SSH_PRI}}
       run: |
-        sudo timedatectl set-timezone "Asia/Shanghai"
+        sudo timedatectl set-timezone "Asia/Chnegdu"
         mkdir -p ~/.ssh/
         echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        git config --global user.name zhuwenguan
-        git config --global user.email 170981799@qq.com
+        git config --global user.name zrongqing
+        git config --global user.email wyzrq163@163.com
     - name: Deploy Blog
       run: |
         npm run build
