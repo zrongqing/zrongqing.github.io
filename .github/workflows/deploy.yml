@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Deploy Hexo to GitHub Pages
 
 on:
   workflow_dispatch:
@@ -16,7 +16,9 @@ jobs:
         node-version: [22.x]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
     - name: Install npm
       run: |
         npm install
