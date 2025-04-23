@@ -1,10 +1,10 @@
 ---
-title: my new post
+title: my-post
 date: 2025-03-14 19:59:25
 tags:
 ---
 
-## markdown
+## markdown 博客样式收集
 
 ---
 
@@ -30,4 +30,10 @@ function hello() {
 </details>
 
 ---
+
+## 样式调整
+
+目前该博客使用的是这个主题 [butterfly](https://butterfly.js.org/)
+
+- [快速开始](https://butterfly.js.org/posts/21cfbf15/)
 
