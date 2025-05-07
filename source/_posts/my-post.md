@@ -2,6 +2,7 @@
 title: my-post
 date: 2025-03-14 19:59:25
 tags:
+abbrlink: my-post
 ---
 
 ## markdown 博客样式收集

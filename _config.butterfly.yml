@@ -1,0 +1,78 @@
+# --------------------------------------
+# Hexo Butterfly Theme Configuration
+# If you have any questions, please refer to the documentation
+# Chinese: https://butterfly.js.org/
+# English: https://butterfly.js.org/en/
+# --------------------------------------
+
+# --------------------------------------
+# Navigation Settings
+# --------------------------------------
+
+nav:
+  # Navigation bar logo image
+  logo:
+  display_title: true
+  # Whether to fix navigation bar
+  fixed: false
+
+menu:
+  首页: / || fas fa-home
+  页面||fas fa-compass:
+    归档: /archives/ || fas fa-archive
+    标签: /tags/ || fas fa-tags
+    分类: /categories/ || fas fa-folder-open
+    图库: /Gallery/ || fas fa-images
+    说说: /talking/ || fas fa-comment-dots
+    示例: /link/ || fas fa-thumbs-up
+  文档||fas fa-book:
+    🚀 快速开始: /posts/21cfbf15/
+    📑 主题页面: /posts/dc584b87/
+    🛠 主題配置: /posts/4aa8abbe/
+    ⚔️ 标签外挂: /posts/ceeb73f/
+    ❓ 主題问答: /posts/98d20436/
+    ⚡️ 进阶教程: /posts/4073eda/
+    ✨ 更新日志: /posts/198a4240/
+  留言板: /messageboard/ || fas fa-comment-dots
+  语言||fas fa-language:
+    English: /en/ || fas fa-e
+    中文: / || fas fa-c
+
+
+# A simple 404 page
+error_404:
+  enable: true
+  subtitle: '頁面沒有找到'
+  background: https://oss.012700.xyz/butterfly/2024/10/butterfly-404.png
+
+
+# --------------------------------------
+# Bottom right button
+# --------------------------------------
+
+# The distance between the bottom right button and the bottom (default unit: px)
+rightside_bottom:
+
+# Conversion between Traditional and Simplified Chinese
+translate:
+  enable: true
+  # The text of a button
+  default: 簡
+  # the language of website (1 - Traditional Chinese/ 2 - Simplified Chinese）
+  defaultEncoding: 1
+  # Time delay
+  translateDelay: 0
+  # The text of the button when the language is Simplified Chinese
+  msgToTraditionalChinese: '繁'
+  # The text of the button when the language is Traditional Chinese
+  msgToSimplifiedChinese: '簡'
+
+# Snackbar - Toast Notification
+# https://github.com/polonel/SnackBar
+# position: top-left / top-center / top-right / bottom-left / bottom-center / bottom-right
+snackbar:
+  enable: false
+  position: bottom-left
+  # The background color of Toast Notification in light mode and dark mode
+  bg_light: '#49b1f5'
+  bg_dark: '#1f1f1f'

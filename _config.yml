@@ -4,17 +4,21 @@
 
 # Site
 title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+subtitle: ZhangRongqing 博客
+description: 这是一个博客
+keywords: hexo,butterfly
+author: ZhangRongqing
+language: zh-CN
+timezone: Asia/Bei_Jing
 
 # URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
-permalink: :year/:month/:day/:title/
+url: https://zrongqing.github.io/
+root: /
+# permalink: :year/:month/:day/:title/
+permalink: posts/:abbrlink/
+
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -105,3 +109,34 @@ deploy:
   type: git
   repository: git@github.com:zrongqing/zrongqing.github.io.git
   branch: gh-pages
+
+
+# # 导航设置
+# nav:
+#   # Navigation bar logo image
+#   logo: /xxxx.png
+#   display_title: true
+#   # Whether to fix navigation bar
+#   fixed: false
+
+# Home: / || fas fa-home
+# Archives: /archives/ || fas fa-archive
+# Tags: /tags/ || fas fa-tags
+# Categories: /categories/ || fas fa-folder-open
+# List||fas fa-list:
+#   Music: /music/ || fas fa-music
+#   Movie: /movies/ || fas fa-video
+# Link: /link/ || fas fa-link
+# About: /about/ || fas fa-heart
+
+# menu:
+# 首页: / || fas fa-home
+# 时间轴: /archives/ || fas fa-archive
+# 标签: /tags/ || fas fa-tags
+# 分类: /categories/ || fas fa-folder-open
+# 清单||fa fa-heartbeat:
+# 音乐: /music/ || fas fa-music
+# 照片: /Gallery/ || fas fa-images
+# 电影: /movies/ || fas fa-video
+# 友链: /link/ || fas fa-link
+# 关于: /about/ || fas fa-heart

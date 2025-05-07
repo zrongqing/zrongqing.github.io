@@ -1,10 +1,9 @@
 ---
 title: Deploy Hexo to GitHub Pages
 date: 2025-03-14 21:55:34
-tags:
+tags: Hexo
+abbrlink: Deploy-Hexo-to-GitHub-Pages
 ---
-
-# Deploy Hexo to GitHub Pages
 
 ## 摘要
 
@@ -66,16 +65,21 @@ https://github.com/username/username.github.io
 ### 安装Hexo
 
 打开 PowerShell，运行以下命令，安装hexo
+
 ``` bash
 npm install hexo -g
 ```
 
 在本地新建一个空文件夹，在空文件夹，右键打开PowerShell，执行以下代码，初始化Hexo： 
+
 ``` bash
 hexo init
 ```
 
-本地预览：
+**本地预览**：
+
+在根路径右键打开PowerShell，输入一下命令
+
 ``` bash
 hexo g #生成静态页面
 hexo s #启动服务器
