@@ -32,7 +32,7 @@ function hello() {
 
 ---
 
-## 样式调整
+### 样式调整
 
 目前该博客使用的是这个主题 [butterfly](https://butterfly.js.org/)
 
