@@ -41,6 +41,11 @@ git -v
 node -v
 ```
 
+解除powershell的运行脚本的限制：
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+```
+
 ### Github Pages
 
 [Github Pages](https://pages.github.com/) 官方其实为我们准备了一个教程，可以参考一下这个。
