@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  <subtitle>ZhangRongqing 博客</subtitle>
+  <link href="https://zrongqing.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://zrongqing.github.io/"/>
+  <updated>2025-08-24T16:51:55.000Z</updated>
+  <id>https://zrongqing.github.io/</id>
+  
+  <author>
+    <name>ZhangRongqing</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安装WindowsServer</title>
+    <link href="https://zrongqing.github.io/posts/ed05ccf6/"/>
+    <id>https://zrongqing.github.io/posts/ed05ccf6/</id>
+    <published>2025-08-24T16:51:55.000Z</published>
+    <updated>2025-08-24T16:51:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- 这里是你的文章内容 --><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在这里写下文章的开头…</p><span id="more"></span>  <!-- 摘要分隔符 --><h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p>VMware-workstation-full-17.6.4.exe:</p><ul><li><a href="https://pan.baidu.com/s/1z_5QxpSKZgLdm8Qdk_wU1g?pwd=n2xv">百度网盘</a> 提取码：n2xv</li><li><a href="https://www.123684.com/s/JBYPTd-oV58H?pwd=oybi#">123云盘</a> 提取码:oybi</li><li><a href="https://www.alipan.com/s/eAPzXA38yb9">百度云盘</a> 提取码: hc60</li></ul><p>26100.1742.240906-0331.ge_release_svc_refresh_SERVER_EVAL_x64FRE_zh-cn.iso:  </p><ul><li><a href="https://pan.baidu.com/s/1z8d6fz4ae_fEFfs0zCw22Q">window server</a> 提取码: 52pj</li></ul><h2 id="正文内容"><a href="#正文内容" class="headerlink" title="正文内容"></a>正文内容</h2><p><strong>安装VMware：</strong><br>因为是破解版，没有哪些繁琐的个人版免费注册。<br>下载好 VMware-workstation-full-17.6.4.exe 下一步下一步就好了。</p><p><strong>WindowsServer2025：</strong><br>右击开始图标，以管理员身份运行终端，执行以下命令：</p><p>slmgr -ipk D764K-2NDRG-47T6Q-P8T8W-YP6DF<br>slmgr -skms kms.0t.net.cn<br>slmgr -ato  </p><p>Operating system edition    KMS Client Product Key<br>Windows Server 2025 Standard    TVRH6-WHNXV-R9WG3-9XRFY-MY832<br>Windows Server 2025 Datacenter  D764K-2NDRG-47T6Q-P8T8W-YP6DF<br>Windows Server 2025 Datacenter: Azure Edition   XGN3F-F394H-FD2MY-PP6FD-8MCRC  </p><p>2025 数据中心版本使用这个<br>DISM &#x2F;online &#x2F;Set-Edition:ServerDatacenter &#x2F;ProductKey:D764K-2NDRG-47T6Q-P8T8W-YP6DF &#x2F;AcceptEula</p><p><strong>SqlServer2016</strong>:<br>密钥：MDCJV-3YX8N-WG89M-KV443-G8249</p><p><a href="https://www.cnblogs.com/kevinbi/p/6544112.html">参考文章</a></p><h3 id="VMware"><a href="#VMware" class="headerlink" title="VMware"></a>VMware</h3><p>没特别安装选项，一路安装就好</p><h3 id="WindowsServer2025"><a href="#WindowsServer2025" class="headerlink" title="WindowsServer2025"></a>WindowsServer2025</h3><p>没特别安装选项，一路安装就好</p><ul><li>在VMware里面安装完成后，可以将CPU核心和内存提高一点</li><li>右键安装的虚拟机，将网络适配器修改成桥接模式</li><li>网络无法ping通过，控制面板-防火墙-高级设置-入站规则，打开回显请求</li></ul><h3 id="SqlServer2016"><a href="#SqlServer2016" class="headerlink" title="SqlServer2016"></a>SqlServer2016</h3><p>安装功能选择这些即可，不然可能还需要安装其他服务，后续如果有用上后面再安装即可。<br><img src="/image.png" alt="安装功能选择"></p><p>安装的时候会让你输入数据库管理的账号密码，请注意保持这个账号密码。</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总结你的文章…</p>]]></content>
+    
+    
+    <summary type="html">&lt;!-- 这里是你的文章内容 --&gt;
+
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;在这里写下文章的开头…&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="windowserver" scheme="https://zrongqing.github.io/categories/windowserver/"/>
+    
+    
+    <category term="windowserver" scheme="https://zrongqing.github.io/tags/windowserver/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Avalonia</title>
+    <link href="https://zrongqing.github.io/posts/3f413ee7/"/>
+    <id>https://zrongqing.github.io/posts/3f413ee7/</id>
+    <published>2025-08-11T20:42:36.000Z</published>
+    <updated>2025-08-11T20:42:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- 这里是你的文章内容 --><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>记录Avalonia的使用看官方文档没有解决的问题，或者记录的一些有关使用Avalonia的特别技巧。  </p><h2 id="ISSUS"><a href="#ISSUS" class="headerlink" title="ISSUS"></a>ISSUS</h2><h3 id="Avalonia-Browser-项目使用Rider启动报错"><a href="#Avalonia-Browser-项目使用Rider启动报错" class="headerlink" title="Avalonia Browser 项目使用Rider启动报错"></a>Avalonia Browser 项目使用Rider启动报错</h3><hr><p>Error: Default system browser option is not supported for Blazor apps.<br>Please select a Chromium-based browser.</p><hr><p>在Rideryo右上角DEBUG运行按钮。</p><p><img src="/rider-edit-configurations.png" alt="click edit configurations">  </p><p>拉到最下面，有一个 open browser 选项，在这里选着模块默认打开的浏览器即可  </p><h3 id="打开的浏览器提示安全错误-net-ERR-CERT-AUTHORITY-INVALID"><a href="#打开的浏览器提示安全错误-net-ERR-CERT-AUTHORITY-INVALID" class="headerlink" title="打开的浏览器提示安全错误 net::ERR_CERT_AUTHORITY_INVALID"></a>打开的浏览器提示安全错误 net::ERR_CERT_AUTHORITY_INVALID</h3><p>net::ERR_CERT_AUTHORITY_INVALID 是因为 Avalonia.Browser 调试时用的是 ASP.NET 内置的 自签名 HTTPS 证书，而 Chrome 默认不信任它，所以就报这个警告。  </p><p>在 Rider 调试 Avalonia.Browser 项目的时候，Rider 会启动 Kestrel（或 ASP.NET）并监听 <a href="https://localhost:xxxx，这个证书是自动生成的，没有被系统或浏览器信任。">https://localhost:xxxx，这个证书是自动生成的，没有被系统或浏览器信任。</a>  </p><p><strong>建议先尝试方式二</strong></p><h4 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h4><ol><li>确认证书已经生成</li></ol><p>在终端（PowerShell）里执行</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet dev<span class="literal">-certs</span> https <span class="literal">--check</span></span><br></pre></td></tr></table></figure><p>如果没生成，会提示你创建证书。  </p><ol start="2"><li>重新生成并信任本地开发证书</li></ol><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dotnet dev<span class="literal">-certs</span> https <span class="literal">--clean</span></span><br><span class="line">dotnet dev<span class="literal">-certs</span> https <span class="literal">--trust</span></span><br></pre></td></tr></table></figure><p>–trust 会在系统里安装并信任这个证书（Windows 会弹出提示，点“是”即可）。</p><ol start="3"><li>确保 Chrome 使用的是系统信任<br>如果你之前已经打开过 Chrome 并忽略过证书错误，有时会缓存，需要清掉：</li></ol><p>在 Chrome 访问 chrome:&#x2F;&#x2F;net-internals&#x2F;#hsts</p><p>在 Delete domain security policies 输入 localhost，点击删除</p><p>重启 Chrome</p><ol start="4"><li>Rider 设置调试浏览器<br>Avalonia.Browser 项目调试时，如果 Rider 默认用的是 “Default system browser”，它可能会打开 Edge 或未信任的 Chrome，你可以：</li></ol><p>在 Run&#x2F;Debug Configurations 中，选择 Custom browser 并指定 Chrome 的可执行文件路径</p><p>确保启动的 Chrome 没有加 –ignore-certificate-errors（否则无法验证是否生效）</p><h4 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h4><p>Properties&#x2F;launchSettings.json 里，把 applicationUrl 从 <a href="https://localhost:xxxx">https://localhost:xxxx</a> 改成 <a href="http://localhost:xxxx">http://localhost:xxxx</a></p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;applicationUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://localhost:5235;https://localhost:7169&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>让http在前面</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总结你的文章…</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;!-- 这里是你的文章内容 --&gt;
+
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;记录Avalonia的使用看官方文档没有解决的问题，或者记录的一些有关使用Avalonia的特别技巧</summary>
+      
+    
+    
+    
+    <category term="Avalonia" scheme="https://zrongqing.github.io/categories/Avalonia/"/>
+    
+    
+    <category term="Avalonia" scheme="https://zrongqing.github.io/tags/Avalonia/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>avaloniaui</title>
+    <link href="https://zrongqing.github.io/posts/b8fc02a1/"/>
+    <id>https://zrongqing.github.io/posts/b8fc02a1/</id>
+    <published>2025-07-26T15:59:52.000Z</published>
+    <updated>2025-07-26T15:59:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- 这里是你的文章内容 --><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在这里写下文章的开头…</p><span id="more"></span>  <!-- 摘要分隔符 --><p><a href="https://docs.avaloniaui.net/zh-Hans/docs/welcome">docs</a></p><h2 id="正文内容"><a href="#正文内容" class="headerlink" title="正文内容"></a>正文内容</h2><p>这里是文章的详细内容…</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总结你的文章…</p>]]></content>
+    
+    
+    <summary type="html">&lt;!-- 这里是你的文章内容 --&gt;
+
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;在这里写下文章的开头…&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="avaloniaui" scheme="https://zrongqing.github.io/categories/avaloniaui/"/>
+    
+    
+    <category term="avaloniaui" scheme="https://zrongqing.github.io/tags/avaloniaui/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo</title>
+    <link href="https://zrongqing.github.io/posts/hexo/"/>
+    <id>https://zrongqing.github.io/posts/hexo/</id>
+    <published>2025-07-01T23:13:15.000Z</published>
+    <updated>2025-07-01T23:13:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- 这里是你的文章内容 --><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>记录一些使用hexo的问题以及解决方案</p><span id="more"></span>  <!-- 摘要分隔符 --><h2 id="HEXO使用"><a href="#HEXO使用" class="headerlink" title="HEXO使用"></a>HEXO使用</h2><h3 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;我的第一篇文章&quot;</span></span><br></pre></td></tr></table></figure><p>创建博客会使用 scaffolds&#x2F;post 中的模板去自动创建新建的博客，可以根据所选择的主题样式，去设置一些默认参数。</p><h3 id="自动生成永久链接（abbrlink）"><a href="#自动生成永久链接（abbrlink）" class="headerlink" title="自动生成永久链接（abbrlink）"></a>自动生成永久链接（abbrlink）</h3><p>_config.yml 文件添加一下配置：</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># abbrlink 配置</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default), crc32</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default), hex</span></span><br><span class="line">  <span class="attr">auto_add:</span> <span class="literal">true</span>  <span class="comment"># 自动为所有文章添加 abbrlink（即使没有设置）</span></span><br></pre></td></tr></table></figure><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>在调用命令 “hexo s” 后自动在文章补充自动生成的”abbrlink”字段</p><h2 id="ISSUS"><a href="#ISSUS" class="headerlink" title="ISSUS"></a>ISSUS</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总结你的文章…</p>]]></content>
+    
+    
+    <summary type="html">&lt;!-- 这里是你的文章内容 --&gt;
+
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;记录一些使用hexo的问题以及解决方案&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://zrongqing.github.io/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://zrongqing.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>syncfusion</title>
+    <link href="https://zrongqing.github.io/posts/syncfusion/"/>
+    <id>https://zrongqing.github.io/posts/syncfusion/</id>
+    <published>2025-05-20T08:14:29.000Z</published>
+    <updated>2025-08-24T12:46:24.601Z</updated>
+    
+    <content type="html"><![CDATA[<p>syncfusion 相对来说有比较好的社区支持，方便自己快速制作一些小软件来使用。<br>可以结合 CommunityToolkit.MVVM 一起俩使用</p><h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul><li><a href="https://www.syncfusion.com/">syncfusion</a></li><li><a href="https://www.syncfusion.com/account/downloads">syncfusion-account</a></li></ul>]]></content>
+    
+    
+    <summary type="html">wpfui三方库syncfusion</summary>
+    
+    
+    
+    <category term="syncfusion" scheme="https://zrongqing.github.io/categories/syncfusion/"/>
+    
+    
+    <category term="syncfusion" scheme="https://zrongqing.github.io/tags/syncfusion/"/>
+    
+    <category term="wpf" scheme="https://zrongqing.github.io/tags/wpf/"/>
+    
+    <category term="csharp" scheme="https://zrongqing.github.io/tags/csharp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>butterfly</title>
+    <link href="https://zrongqing.github.io/posts/butterfly/"/>
+    <id>https://zrongqing.github.io/posts/butterfly/</id>
+    <published>2025-05-07T21:48:14.000Z</published>
+    <updated>2025-08-24T12:46:24.600Z</updated>
+    
+    
+    <summary type="html">Butterfly 相关链接</summary>
+    
+    
+    
+    <category term="Docs" scheme="https://zrongqing.github.io/categories/Docs/"/>
+    
+    
+    <category term="Hexo" scheme="https://zrongqing.github.io/tags/Hexo/"/>
+    
+    <category term="主題" scheme="https://zrongqing.github.io/tags/%E4%B8%BB%E9%A1%8C/"/>
+    
+    <category term="butterfly" scheme="https://zrongqing.github.io/tags/butterfly/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Deploy Hexo to GitHub Pages</title>
+    <link href="https://zrongqing.github.io/posts/Deploy-Hexo-to-GitHub-Pages/"/>
+    <id>https://zrongqing.github.io/posts/Deploy-Hexo-to-GitHub-Pages/</id>
+    <published>2025-03-14T21:55:34.000Z</published>
+    <updated>2025-08-24T12:46:24.599Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文将介绍如何借助 Github Page 来搭建自己的博客（知识库），并实现提交代码（文本）到 Github 自动触发部署静态网页的流程。</p><p>因为本人目前工作主要是 C&#x2F;S 架构的开发，目前所有的操作都是基于Windows操作说明。</p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>工作有几年了，手中的项目逐渐增多，随着解决的问题越来越多，常常忘记自己解决问题的思路，明明自己以前解决过，现在怎么就想不起来了呢。虽然有有借助 Obsidian 做各种记录，但是不方便分享，别人分享就会有点尴尬了。  </p><p>我由此想搭建自己的个人博客，用博客来记录自己各个项目的开发过程、遇到的问题和解决方案，作为自己的长期记忆，存放在电脑里，还可以作为自己的展示平台，把自己的能力通过实打实的项目展现出来。  </p><p>十分感谢 github 以及 hexo 的开源贡献者。</p><h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>想要完成部署，要准备一些本地的开发环境。开发环境不在本文章详细介绍，以下给出相关链接，自行安装。</p><ul><li><a href="https://git-scm.com/downloads">Git Downloads</a>  </li><li><a href="https://git-scm.com/book/zh/v2/%e8%b5%b7%e6%ad%a5-%e5%ae%89%e8%a3%85-Git">Git Install</a></li><li><a href="https://nodejs.cn/download/">nodeJs Downloads</a></li><li><a href="https://www.cnblogs.com/48xz/p/16146141.html">nodeJs Install</a></li></ul><p>验证Git环境：  </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git -v</span><br></pre></td></tr></table></figure><p>验证NodeJs环境：  </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure><p>解除powershell的运行脚本的限制：</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> RemoteSigned</span><br></pre></td></tr></table></figure><h3 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h3><p><a href="https://pages.github.com/">Github Pages</a> 官方其实为我们准备了一个教程，可以参考一下这个。</p><p>注意事项：<br><a href="https://github.com/username/username.github.io">https://github.com/username/username.github.io</a><br>你的 github-username 必须匹配，不然无法工作，username 不是显示的名字，而是你克隆仓库的那个名字。  </p><p>如果你想修改这个名字，请参考以下步骤：<br>点击你的头像，左侧找到 Account -&gt; Change username，按照提示的步骤修改就好。</p><p>创建你的仓库，新增分支 gh-pages，main分支将作为 hexo 源码以及 markdown 文件的存档的分支，gh-pages则作为静态网页存放的地方。</p><p>打开你的仓库，点击 Settings -&gt; Pages </p><p><img src="/github_page.png" alt="alt text"></p><p>按照1，2，3，4完成设置，如果前面的设置正确，在5的位置，这就是博客域名。如果项目的名字没有匹配上规则，这里则不是这样的格式。</p><p>以上就完成了 Gihub Pages 上的配置。</p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>打开 PowerShell，运行以下命令，安装hexo</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g</span><br></pre></td></tr></table></figure><p>在本地新建一个空文件夹，在空文件夹，右键打开PowerShell，执行以下代码，初始化Hexo： </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure><p><strong>本地预览</strong>：</p><p>在根路径右键打开PowerShell，输入一下命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment">#生成静态页面</span></span><br><span class="line">hexo s <span class="comment">#启动服务器</span></span><br></pre></td></tr></table></figure><p>根据提示，在浏览器中输入<a href="http://localhost:4000，即可访问本地网站。">http://localhost:4000，即可访问本地网站。</a></p><h3 id="部署Github"><a href="#部署Github" class="headerlink" title="部署Github"></a>部署Github</h3><p>克隆上面准备的仓库到本地。  </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:zrongqing/zrongqing.github.io.git</span><br></pre></td></tr></table></figure><p>这是我的仓库地址，修改你们自己的就好</p><p>将 hexo init 生成的文件直接复制到克隆下的仓库里面。记得Commit，将hexo保存到main分支。</p><p>在此文件夹，右键打开powershell，执行以下命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>打开文件夹中的_config.yml文件，拉倒最后，填写deploy模块</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:zrongqing/zrongqing.github.io.git</span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure><p>hexo部署的时候，会以git部署到指定的repository里面的指定branch</p><p>执行发布</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure><h3 id="自动化部署"><a href="#自动化部署" class="headerlink" title="自动化部署"></a>自动化部署</h3><p>自动部署的核心是上传hexo源码，然后让github自动执行一个action，把源码编译成静态页面，并推送给gh-pages。</p><p>在仓库跟路径新建文件 “.github\workflows\deploy.yml”</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">strategy:</span></span><br><span class="line">      <span class="attr">matrix:</span></span><br><span class="line">        <span class="attr">node-version:</span> [<span class="number">22.</span><span class="string">x</span>]</span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">npm</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install</span></span><br><span class="line"><span class="string">        npm install hexo-asset-img --save</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Prepare</span> <span class="string">Github</span> <span class="string">Identity</span></span><br><span class="line">      <span class="attr">env:</span></span><br><span class="line">          <span class="attr">HEXO_DEPLOY_PRI:</span> <span class="string">$&#123;&#123;secrets.SSH_PRI&#125;&#125;</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;</span></span><br><span class="line"><span class="string">        mkdir -p ~/.ssh/</span></span><br><span class="line"><span class="string">        echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa</span></span><br><span class="line"><span class="string">        chmod 600 ~/.ssh/id_rsa</span></span><br><span class="line"><span class="string">        ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="string">        git config --global user.name zrongqing</span></span><br><span class="line"><span class="string">        git config --global user.email wyzrq163@163.com</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Blog</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm run build</span></span><br><span class="line"><span class="string">        npm run deploy</span></span><br></pre></td></tr></table></figure><p>各个字段有什么含义，可以询问以下AI，这里不在重复。  </p><p>因为是自动部署，Github执行命令的时候会将自动形成的网页发布到gh-pages分支，肯定需要我们的SSH秘钥，具体如何配置秘钥可以参考 <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh">github docs about ssh</a>。如果能够通过ssh的方式能够上传代码就配置好了，不过都借用github搭建博客，这个大家应该都配置好了，所以就不多赘述了。</p><p>接下来，我们要将私钥添加到 GitHub Secrets，不然自动化无法通过。<br><img src="/secrets-ssh.png" alt="alt text"></p><ul><li>点击 Settings -&gt; Secrets and variables -&gt; Actions</li><li>点击 New repository secret，设置以下内容：<ul><li>Name：SSH_PRI（这个名称需要与工作流中的 $ 一致）。</li><li>Secret：粘贴私钥内容。</li><li>保存</li></ul></li></ul><p>需要注意，git config –global 设置的用户名和邮箱需要与 GitHub 账户一致，否则可能会导致提交记录无法关联到你的账户。</p><p>这样自动化就能推送你的网页了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;本文将介绍如何借助 Github Page 来搭建自己的博客（知识库），并实现提交代码（文本）到 Github 自动触发部署静态网页的流程。</summary>
+      
+    
+    
+    
+    
+    <category term="Hexo" scheme="https://zrongqing.github.io/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>my-post</title>
+    <link href="https://zrongqing.github.io/posts/my-post/"/>
+    <id>https://zrongqing.github.io/posts/my-post/</id>
+    <published>2025-03-14T19:59:25.000Z</published>
+    <updated>2025-08-24T12:46:24.601Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="markdown-博客样式收集"><a href="#markdown-博客样式收集" class="headerlink" title="markdown 博客样式收集"></a>markdown 博客样式收集</h2><hr><p>代码折叠：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hello</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过HTML的方式</p><details><summary>点击展开代码</summary><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hello</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></details><hr><h3 id="样式调整"><a href="#样式调整" class="headerlink" title="样式调整"></a>样式调整</h3><p>目前该博客使用的是这个主题 <a href="https://butterfly.js.org/">butterfly</a></p><ul><li><a href="https://butterfly.js.org/posts/21cfbf15/">快速开始</a></li></ul><h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;markdown-博客样式收集&quot;&gt;&lt;a href=&quot;#markdown-博客样式收集&quot; class=&quot;headerlink&quot; title=&quot;markdown 博客样式收集&quot;&gt;&lt;/a&gt;markdown 博客样式收集&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;代码折叠：&lt;/p&gt;
+&lt;fi</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
