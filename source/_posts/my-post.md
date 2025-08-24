@@ -38,3 +38,5 @@ function hello() {
 
 - [快速开始](https://butterfly.js.org/posts/21cfbf15/)
 
+## 指令
+
