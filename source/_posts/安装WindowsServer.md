@@ -59,6 +59,8 @@ DISM /online /Set-Edition:ServerDatacenter /ProductKey:D764K-2NDRG-47T6Q-P8T8W-Y
 **SqlServer2016**:  
 密钥：MDCJV-3YX8N-WG89M-KV443-G8249
 
+[参考文章](https://www.cnblogs.com/kevinbi/p/6544112.html)
+
 ### VMware
 
 没特别安装选项，一路安装就好
@@ -67,13 +69,17 @@ DISM /online /Set-Edition:ServerDatacenter /ProductKey:D764K-2NDRG-47T6Q-P8T8W-Y
 
 没特别安装选项，一路安装就好
 
-在VMware里面安装完成后，可以将CPU核心和内存提高一点
+- 在VMware里面安装完成后，可以将CPU核心和内存提高一点
+- 右键安装的虚拟机，将网络适配器修改成桥接模式
+- 网络无法ping通过，控制面板-防火墙-高级设置-入站规则，打开回显请求
+
 
 ### SqlServer2016
 
 安装功能选择这些即可，不然可能还需要安装其他服务，后续如果有用上后面再安装即可。
 ![安装功能选择](安装WindowsServer/image.png)
 
+安装的时候会让你输入数据库管理的账号密码，请注意保持这个账号密码。
 
 ## 结论
 总结你的文章...
