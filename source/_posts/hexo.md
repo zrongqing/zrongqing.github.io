@@ -11,7 +11,6 @@ aside: true
 highlight_shrink: true
 abbrlink: hexo
 date: 2025-07-01 23:13:15
-updated: 2025-07-01 23:13:15
 description:
 ---
 
@@ -23,6 +22,33 @@ description:
 <!-- more -->  <!-- 摘要分隔符 -->
 
 ## HEXO使用
+
+### 本地运行博客
+
+1. 清理缓存（可选，但推荐）：确保生成的是最新内容。
+```bash
+hexo clean  #
+```
+这个命令会删除之前生成的缓存文件 (db.json) 和静态文件 (public 文件夹)。
+
+2. 生成静态页面：将你写的 Markdown 文章转换成网站文件。
+```bash
+hexo generate
+```
+
+3. 启动本地服务器预览：在本地启动一个服务器，让你能在浏览器中实时看到博客的样子。
+```bash
+hexo server
+```
+
+4. 效果
+执行 hexo server 命令后，命令行终端会显示访问地址。打开浏览器，访问 http://localhost:4000，你的博客就在本地运行起来了。
+
+在预览模式下，你可以随时修改文章或主题配置。保存修改后，需要重新运行 hexo g 和 hexo s（或 Ctrl+C 停止服务后，重新执行 hexo s）才能看到更新。
+
+当你对本地预览的效果感到满意后，就可以使用 hexo deploy (hexo d) 命令将其部署到 GitHub Pages 等平台了。
+
+希望这份指南能帮你顺利地在本地跑起 Hexo 博客。如果遇到任何具体问题，可以随时再问我～
 
 ### 创建博客
 
