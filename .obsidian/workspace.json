@@ -1,0 +1,224 @@
+{
+  "main": {
+    "id": "8cd6f7b7b4b5f1dc",
+    "type": "split",
+    "children": [
+      {
+        "id": "759e428757ba89e6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c8b9a1f8fa0a5884",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b9905df65d1b22ac",
+    "type": "split",
+    "children": [
+      {
+        "id": "506c101d9927be8f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7f8ab38bb57d8451",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "a1876b4041bed909",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "8f7eab99402af4b8",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "94e3ee55735d09b4",
+    "type": "split",
+    "children": [
+      {
+        "id": "270bb440a81e7b47",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "01cbc3451c38f939",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "285a1c1e73133dfc",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
+            }
+          },
+          {
+            "id": "3210f1c50316b585",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "34c6a226d31da657",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "ab590caab1174cc7",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          },
+          {
+            "id": "eb84f5daee6958fc",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "c8b9a1f8fa0a5884",
+  "lastOpenFiles": [
+    "source/_posts/Avalonia/avaloniaui.md",
+    "source/_posts/Avalonia/Avalonia.md",
+    "source/_posts/_imgs/rider-edit-configurations.png",
+    "source/_posts/未命名.md",
+    "source/_posts/未命名",
+    "source/_posts/Deploy-Hexo-to-GitHub-Pages/secrets-ssh.png",
+    "public/posts/syncfusion/index.html",
+    "public/posts/syncfusion",
+    "public/posts/my-post/index.html",
+    "public/posts/my-post",
+    "public/posts/hexo/index.html",
+    "public/posts/hexo",
+    "public/posts/ed05ccf6/index.html",
+    "public/posts/ed05ccf6",
+    "public/posts/cd3ab45e/index.html",
+    "node_modules/utils-merge/README.md",
+    "node_modules/unc-path-regex/README.md",
+    "node_modules/url-to-options/README.md",
+    "node_modules/uglify-js/README.md",
+    "node_modules/webidl-conversions/README.md",
+    "node_modules/webidl-conversions/LICENSE.md",
+    "node_modules/yauzl/README.md",
+    "node_modules/fast-archy/README.md",
+    "node_modules/fast-text-table/README.md",
+    "source/_posts/Deploy-Hexo-to-GitHub-Pages/github_page.png",
+    "source/link/index.md"
+  ]
+}

@@ -3,7 +3,8 @@ title: {{ title }}
 date: {{ date }}
 updated: {{ date }}  # 最后更新时间
 tags: []
-categories: []
+# 留空时由 abbrlink.auto_category 根据 source/_posts 下的目录生成
+categories:
 keywords: []
 description: ''
 abbrlink:

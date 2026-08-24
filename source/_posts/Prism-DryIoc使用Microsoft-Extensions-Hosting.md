@@ -3,9 +3,7 @@ title: Prism.DryIoc使用Microsoft.Extensions.Hosting
 tags:
   - tag1
   - tag2
-categories:
-  - category1
-  - category2
+categories: uncategorized
 keywords:
   - Prism
   - DryIoc
@@ -15,10 +13,10 @@ keywords:
 toc: true
 aside: true
 highlight_shrink: true
+abbrlink: cd3ab45e
 date: 2026-05-31 16:53:03
 updated: 2026-05-31 16:53:03
 description:
-abbrlink:
 ---
 
 <!-- 这里是你的文章内容 -->

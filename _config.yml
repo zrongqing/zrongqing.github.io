@@ -24,6 +24,10 @@ abbrlink:
   alg: crc32  # 算法：crc16(default), crc32
   rep: hex    # 进制：dec(default), hex
   auto_add: true  # 自动为所有文章添加 abbrlink（即使没有设置）
+  auto_category:
+    enable: true  # 根据 source/_posts 下的目录层级生成分类
+    depth: 3      # 最多使用三级目录作为分类
+    over_write: true  # 允许插件将目录分类写回文章 Front Matter
 
 permalink_defaults:
 pretty_urls:

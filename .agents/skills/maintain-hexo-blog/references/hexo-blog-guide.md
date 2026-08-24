@@ -17,7 +17,7 @@
 
 | 项目 | 当前值 | 作用 |
 | --- | --- | --- |
-| Hexo | `7.3.0`（`package.json` 使用 `^7.3.0`） | 把 Markdown 和主题模板生成静态站点 |
+| Hexo | `8.1.2`（`package.json` 使用 `^8.1.2`） | 把 Markdown 和主题模板生成静态站点；要求 Node.js `>=20.19.0` |
 | 主题 | Butterfly `5.4.2`（锁文件版本，`package.json` 使用 `^5.4.2`） | 控制页面布局、文章封面、目录、侧栏等 |
 | CI Node.js | `22.x` | GitHub Actions 构建环境 |
 | 源码分支 | `main` | 保存文章、配置和部署工作流 |

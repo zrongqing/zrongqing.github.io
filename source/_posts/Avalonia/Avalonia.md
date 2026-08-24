@@ -33,7 +33,7 @@ Please select a Chromium-based browser.
 
 在Rideryo右上角DEBUG运行按钮。
 
-![click edit configurations](Avalonia/rider-edit-configurations.png)  
+![click edit configurations](../_imgs/rider-edit-configurations.png)  
 
 拉到最下面，有一个 open browser 选项，在这里选着模块默认打开的浏览器即可  
 
