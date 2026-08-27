@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/syncfusion.md",
+                "file": "source/_posts/DevOps/GitHub Actions/Devkit-GitHub-三端独立发布流程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "syncfusion"
+              "title": "Devkit-GitHub-三端独立发布流程"
             }
           }
         ]
@@ -196,8 +196,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c8b9a1f8fa0a5884",
+  "active": "7f8ab38bb57d8451",
   "lastOpenFiles": [
+    "source/_posts/AI/AI 编程工具/CC-Switch-使用教程：在-Codex、DeepSeek-与-ChatGPT-之间快速切换.md",
+    "source/_posts/syncfusion.md",
     "source/_posts/Devkit-GitHub-三端独立发布流程.md",
     "node_modules/string_decoder/README.md",
     "source/_posts/Avalonia/avaloniaui.md",
