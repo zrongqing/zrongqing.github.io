@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo - ZhangRongqing 博客</title><meta name="author" content="ZhangRongqing"><meta name="copyright" content="ZhangRongqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="这是一个博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://zrongqing.github.io/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这是一个博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zrongqing.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="ZhangRongqing">
+<meta property="article:tag" content="hexo,butterfly">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zrongqing.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Hexo",
+  "url": "https://zrongqing.github.io/"
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zrongqing.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 示例</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/21cfbf15/"><span> 🚀 快速开始</span></a></li><li><a class="site-page child" href="/posts/dc584b87/"><span> 📑 主题页面</span></a></li><li><a class="site-page child" href="/posts/4aa8abbe/"><span> 🛠 主題配置</span></a></li><li><a class="site-page child" href="/posts/ceeb73f/"><span> ⚔️ 标签外挂</span></a></li><li><a class="site-page child" href="/posts/98d20436/"><span> ❓ 主題问答</span></a></li><li><a class="site-page child" href="/posts/4073eda/"><span> ⚡️ 进阶教程</span></a></li><li><a class="site-page child" href="/posts/198a4240/"><span> ✨ 更新日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> 语言</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c"></i><span> 中文</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 示例</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/21cfbf15/"><span> 🚀 快速开始</span></a></li><li><a class="site-page child" href="/posts/dc584b87/"><span> 📑 主题页面</span></a></li><li><a class="site-page child" href="/posts/4aa8abbe/"><span> 🛠 主題配置</span></a></li><li><a class="site-page child" href="/posts/ceeb73f/"><span> ⚔️ 标签外挂</span></a></li><li><a class="site-page child" href="/posts/98d20436/"><span> ❓ 主題问答</span></a></li><li><a class="site-page child" href="/posts/4073eda/"><span> ⚡️ 进阶教程</span></a></li><li><a class="site-page child" href="/posts/198a4240/"><span> ✨ 更新日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> 语言</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c"></i><span> 中文</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/3c2abc20/" title="Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南">Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-09-10T22:15:20.000Z" title="发表于 2026-09-10 22:15:20">2026-09-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI/">AI</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI/AI-%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">AI 编程工具</a></span></div><div class="content">Codex 里的“模式”并不只代表一个开关。工作模式决定先规划还是直接执行，运行环境决定代码在哪里修改，模型决定能力、速度和成本的取舍，推理强度则决定一次任务投入多少计算资源。 对大多数开发任务，一套实用的起点是：默认模式 + Terra Medium。小改动可以直接在 Local 中完成；正式功能或并行任务优先放进 Worktree；只有真正困难的任务才需要 Astra、Max 或 Ultra。  本文核对时间为 2026 年 9 月 10 日。Codex 的模型名称、账号可用选项和界面位置可能随套餐与灰度发布变化，应以当前客户端和 OpenAI 官方文档为准。    先区分四个维度选择 Codex 配置时，可以依次回答四个问题：  需求是否足够明确，可以立即实施？ 改动应直接进入当前目录，还是需要隔离或远程运行？ 任务需要多强的模型能力？ 模型需要投入多少推理资源，是否值得拆分为并行子任务？  这四项相互独立。例如，Plan 模式可以搭配 Terra，也可以搭配 Astra；Worktree 是代码隔离方式，并不意味着模型会自动变强；Ultra 代表并行代理工作流，也不等于单...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/1aa774e3/" title="CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-08-26T23:55:29.000Z" title="发表于 2026-08-26 23:55:29">2026-08-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI/">AI</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI/AI-%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">AI 编程工具</a></span></div><div class="content">CC Switch 适合同时使用 Codex、Claude Code、Gemini CLI、OpenCode 等 AI 编程工具的人。它把散落在 JSON、TOML 和环境变量里的供应商配置集中到桌面界面中，帮助我们保存多套 API 地址、密钥和模型配置，再通过主界面或系统托盘快速切换。 本文重点讲清楚三个最容易混淆的问题：如何在 Codex 中切换 ChatGPT 官方账号与 DeepSeek，哪些情况需要 CC Switch 本地路由，以及它与 Clash、V2Ray、Surge 等 VPN&#x2F;代理工具是否会冲突。  本文核对时间为 2026 年 8 月 26 日。CC Switch 更新较快，旧版本的菜单名称和 DeepSeek 路由方式可能不同；涉及路由时，应以供应商卡片上的“需要路由”标记为准。    先理解 CC Switch 到底切换什么CC Switch 不是一个新的大模型，也不是 VPN。它主要做两件事：  保存并切换 AI 编程工具的本地配置； 在需要时启动本地 HTTP 路由，完成请求转发、格式转换、用量统计和故障转移。  普通切换的请求路径如下： ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/f4e463dd/" title="Devkit GitHub 三端独立发布流程">Devkit GitHub 三端独立发布流程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-08-26T23:35:00.000Z" title="发表于 2026-08-26 23:35:00">2026-08-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/DevOps/">DevOps</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/DevOps/GitHub-Actions/">GitHub Actions</a></span></div><div class="content">Devkit 同时包含 WPF 客户端、Vue 3 Web 前端和 ASP.NET Core 服务端。三端放在一个 GitHub 仓库没有问题，而且以当前项目的跨端契约协作方式来看，继续使用单仓库更合适。需要拆开的不是代码仓库，而是三端的构建、版本、发布产物和部署权限。 本文基于 Devkit 当前工程结构给出一套可逐步落地的 GitHub Actions 方案，并回答两个核心问题：三端是否应该共用仓库，以及如何在共用仓库的前提下独立发布。   结论先行推荐采用下面的策略：  保留一个仓库和一个受保护的长期分支 main。 功能开发使用短生命周期分支，例如 feature/client-*、feature/web-* 和 feature/server-*。 paths 负责决定普通 CI 需要构建哪些目录，但不负责确定正式版本。 client-v1.2.0、web-v1.5.0、server-v2.1.0 这类组件标签负责触发独立正式发布。 WPF 安装包发布到 GitHub Releases；Web 发布静态文件或 Web 容器；服务端发布 Docker 镜像并部署到目标环境。...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/cd3ab45e/" title="Prism.DryIoc使用Microsoft.Extensions.Hosting">Prism.DryIoc使用Microsoft.Extensions.Hosting</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-05-31T16:53:03.000Z" title="发表于 2026-05-31 16:53:03">2026-05-31</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/uncategorized/">uncategorized</a></span></div><div class="content">  引言Prism.DryIoc中试用微软的DI全家桶服务怎么做？      所使用的NUGET包 12345&lt;ItemGroup&gt;  &lt;PackageReference Include=&quot;DryIoc.Microsoft.DependencyInjection&quot; Version=&quot;6.2.0&quot; /&gt;  &lt;PackageReference Include=&quot;Microsoft.Extensions.DependencyInjection&quot; Version=&quot;10.0.8&quot; /&gt;  &lt;PackageReference Include=&quot;Prism.DryIoc&quot; Version=&quot;9.0.537&quot; /&gt;&lt;/ItemGroup&gt;  为什么要这么做？DroIoc速度快，可以动态注册；Hosting注册后，就不能够再动态注册了。就目前微软的生态来说，使用Hosting的配置比较多。所以可以在Prism这样桥接一...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/7f4ee469/" title=".NET Confuse">.NET Confuse</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-13T11:07:30.000Z" title="发表于 2025-10-13 11:07:30">2025-10-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/NET/">.NET</a></span></div><div class="content">引言.Net 混淆相关知识点。如今有了AOT后，混淆在现在的场景用处不是特别大，但是还是在这里做一个记录。 obfuscargithub地址：obfuscar例子：example obfuscar混淆的工程文件是.xml文件，具体含义可 参考 1234567&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;Obfuscator&gt;  &lt;Var name=&quot;InPath&quot; value=&quot;bin\Release\net8.0\&quot; /&gt;  &lt;Var name=&quot;OutPath&quot; value=&quot;bin\Obfuscated\&quot; /&gt;    &lt;Module file=&quot;$(InPath)\ClassLibrary1.dll&quot; /&gt;&lt;/Obfuscator&gt;  相较于非SDK风格的混淆方式，在官方文档较为详细，在此不作额外说明，详细讲解一下dot中的部署。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/ed05ccf6/" title="安装WindowsServer">安装WindowsServer</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-24T16:51:55.000Z" title="发表于 2025-08-24 16:51:55">2025-08-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/windowserver/">windowserver</a></span></div><div class="content">  引言在这里写下文章的开头…     相关链接VMware-workstation-full-17.6.4.exe:  百度网盘 提取码：n2xv 123云盘 提取码:oybi 百度云盘 提取码: hc60  26100.1742.240906-0331.ge_release_svc_refresh_SERVER_EVAL_x64FRE_zh-cn.iso:    window server 提取码: 52pj  正文内容安装VMware：因为是破解版，没有哪些繁琐的个人版免费注册。下载好 VMware-workstation-full-17.6.4.exe 下一步下一步就好了。 WindowsServer2025：右击开始图标，以管理员身份运行终端，执行以下命令： slmgr -ipk D764K-2NDRG-47T6Q-P8T8W-YP6DFslmgr -skms kms.0t.net.cnslmgr -ato   Operating system edition    KMS Client Product KeyWindows Server 2025 Standard  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/3f413ee7/" title="Avalonia">Avalonia</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-11T20:42:36.000Z" title="发表于 2025-08-11 20:42:36">2025-08-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Avalonia/">Avalonia</a></span></div><div class="content">  引言记录Avalonia的使用看官方文档没有解决的问题，或者记录的一些有关使用Avalonia的特别技巧。   ISSUSAvalonia Browser 项目使用Rider启动报错 Error: Default system browser option is not supported for Blazor apps.Please select a Chromium-based browser.  在Rideryo右上角DEBUG运行按钮。    拉到最下面，有一个 open browser 选项，在这里选着模块默认打开的浏览器即可   打开的浏览器提示安全错误 net::ERR_CERT_AUTHORITY_INVALIDnet::ERR_CERT_AUTHORITY_INVALID 是因为 Avalonia.Browser 调试时用的是 ASP.NET 内置的 自签名 HTTPS 证书，而 Chrome 默认不信任它，所以就报这个警告。   在 Rider 调试 Avalonia.Browser 项目的时候，Rider 会启动 Kestrel（或 ASP.NET）并监...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/b8fc02a1/" title="avaloniaui">avaloniaui</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-26T15:59:52.000Z" title="发表于 2025-07-26 15:59:52">2025-07-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/avaloniaui/">avaloniaui</a></span></div><div class="content">  引言在这里写下文章的开头…     docs 正文内容这里是文章的详细内容… 结论总结你的文章… </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/hexo/" title="hexo">hexo</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-01T23:13:15.000Z" title="发表于 2025-07-01 23:13:15">2025-07-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/hexo/">hexo</a></span></div><div class="content">  引言记录一些使用hexo的问题以及解决方案     HEXO使用本地运行博客 清理缓存（可选，但推荐）：确保生成的是最新内容。  1hexo clean  # 这个命令会删除之前生成的缓存文件 (db.json) 和静态文件 (public 文件夹)。  生成静态页面：将你写的 Markdown 文章转换成网站文件。  1hexo generate   启动本地服务器预览：在本地启动一个服务器，让你能在浏览器中实时看到博客的样子。  1hexo server   效果执行 hexo server 命令后，命令行终端会显示访问地址。打开浏览器，访问 http://localhost:4000，你的博客就在本地运行起来了。  在预览模式下，你可以随时修改文章或主题配置。保存修改后，需要重新运行 hexo g 和 hexo s（或 Ctrl+C 停止服务后，重新执行 hexo s）才能看到更新。 当你对本地预览的效果感到满意后，就可以使用 hexo deploy (hexo d) 命令将其部署到 GitHub Pages 等平台了。 希望这份指南能帮你顺利地在本地跑起 Hexo 博...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/syncfusion/" title="syncfusion">syncfusion</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-20T08:14:29.000Z" title="发表于 2025-05-20 08:14:29">2025-05-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/syncfusion/">syncfusion</a></span></div><div class="content">syncfusion 相对来说有比较好的社区支持，方便自己快速制作一些小软件来使用。可以结合 CommunityToolkit.MVVM 一起俩使用 相关链接 syncfusion syncfusion-account  </div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ZhangRongqing</div><div class="author-info-description">这是一个博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3c2abc20/" title="Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南">Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南</a><time datetime="2026-09-10T22:15:20.000Z" title="发表于 2026-09-10 22:15:20">2026-09-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1aa774e3/" title="CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</a><time datetime="2026-08-26T23:55:29.000Z" title="发表于 2026-08-26 23:55:29">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/f4e463dd/" title="Devkit GitHub 三端独立发布流程">Devkit GitHub 三端独立发布流程</a><time datetime="2026-08-26T23:35:00.000Z" title="发表于 2026-08-26 23:35:00">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/cd3ab45e/" title="Prism.DryIoc使用Microsoft.Extensions.Hosting">Prism.DryIoc使用Microsoft.Extensions.Hosting</a><time datetime="2026-05-31T16:53:03.000Z" title="发表于 2026-05-31 16:53:03">2026-05-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7f4ee469/" title=".NET Confuse">.NET Confuse</a><time datetime="2025-10-13T11:07:30.000Z" title="发表于 2025-10-13 11:07:30">2025-10-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/NET/"><span class="card-category-list-name">.NET</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">2</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/AI-%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">AI 编程工具</span><span class="card-category-list-count">2</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Avalonia/"><span class="card-category-list-name">Avalonia</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/"><span class="card-category-list-name">DevOps</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/GitHub-Actions/"><span class="card-category-list-name">GitHub Actions</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Docs/"><span class="card-category-list-name">Docs</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/avaloniaui/"><span class="card-category-list-name">avaloniaui</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/tag2/" style="font-size: 1.1em; color: #999">tag2</a> <a href="/tags/NET/" style="font-size: 1.1em; color: #999">.NET</a> <a href="/tags/Avalonia/" style="font-size: 1.1em; color: #999">Avalonia</a> <a href="/tags/ASP-NET-Core/" style="font-size: 1.1em; color: #999">ASP.NET Core</a> <a href="/tags/GitHub-Actions/" style="font-size: 1.1em; color: #999">GitHub Actions</a> <a href="/tags/Vue-3/" style="font-size: 1.1em; color: #999">Vue 3</a> <a href="/tags/windowserver/" style="font-size: 1.1em; color: #999">windowserver</a> <a href="/tags/avaloniaui/" style="font-size: 1.1em; color: #999">avaloniaui</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/ChatGPT/" style="font-size: 1.1em; color: #999">ChatGPT</a> <a href="/tags/%E4%B8%BB%E9%A1%8C/" style="font-size: 1.1em; color: #999">主題</a> <a href="/tags/CI-CD/" style="font-size: 1.1em; color: #999">CI/CD</a> <a href="/tags/CC-Switch/" style="font-size: 1.1em; color: #999">CC Switch</a> <a href="/tags/wpf/" style="font-size: 1.1em; color: #999">wpf</a> <a href="/tags/syncfusion/" style="font-size: 1.1em; color: #999">syncfusion</a> <a href="/tags/Hexo/" style="font-size: 1.5em; color: #99a9bf">Hexo</a> <a href="/tags/Codex/" style="font-size: 1.5em; color: #99a9bf">Codex</a> <a href="/tags/butterfly/" style="font-size: 1.1em; color: #999">butterfly</a> <a href="/tags/csharp/" style="font-size: 1.1em; color: #999">csharp</a> <a href="/tags/GPT-6-Astra/" style="font-size: 1.1em; color: #999">GPT-6 Astra</a> <a href="/tags/AI-%E7%BC%96%E7%A8%8B/" style="font-size: 1.5em; color: #99a9bf">AI 编程</a> <a href="/tags/tag1/" style="font-size: 1.1em; color: #999">tag1</a> <a href="/tags/WPF/" style="font-size: 1.1em; color: #999">WPF</a> <a href="/tags/Confuse/" style="font-size: 1.1em; color: #999">Confuse</a> <a href="/tags/DeepSeek/" style="font-size: 1.1em; color: #999">DeepSeek</a> <a href="/tags/GPT-5-6/" style="font-size: 1.1em; color: #999">GPT-5.6</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/09/">
+            <span class="card-archive-list-date">
+              九月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/08/">
+            <span class="card-archive-list-date">
+              八月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              七月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">13</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-09-10T14:38:02.777Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By ZhangRongqing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

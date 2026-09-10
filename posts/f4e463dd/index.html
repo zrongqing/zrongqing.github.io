@@ -1,0 +1,461 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Devkit GitHub 三端独立发布流程 | Hexo</title><meta name="author" content="ZhangRongqing"><meta name="copyright" content="ZhangRongqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基于 Devkit 的 WPF、Vue 3 与 ASP.NET Core 三端结构，设计单仓库、独立版本、独立构建和独立部署的 GitHub 发布流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Devkit GitHub 三端独立发布流程">
+<meta property="og:url" content="https://zrongqing.github.io/posts/f4e463dd/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基于 Devkit 的 WPF、Vue 3 与 ASP.NET Core 三端结构，设计单仓库、独立版本、独立构建和独立部署的 GitHub 发布流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zrongqing.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-08-26T23:35:00.000Z">
+<meta property="article:modified_time" content="2026-08-26T23:35:00.000Z">
+<meta property="article:author" content="ZhangRongqing">
+<meta property="article:tag" content="ASP.NET Core">
+<meta property="article:tag" content="CI&#x2F;CD">
+<meta property="article:tag" content="GitHub Actions">
+<meta property="article:tag" content="Vue 3">
+<meta property="article:tag" content="WPF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zrongqing.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Devkit GitHub 三端独立发布流程",
+  "url": "https://zrongqing.github.io/posts/f4e463dd/",
+  "image": "https://zrongqing.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-08-26T23:35:00.000Z",
+  "dateModified": "2026-08-26T23:35:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ZhangRongqing",
+      "url": "https://zrongqing.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zrongqing.github.io/posts/f4e463dd/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Devkit GitHub 三端独立发布流程',
+  isHighlightShrink: true,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 示例</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/21cfbf15/"><span> 🚀 快速开始</span></a></li><li><a class="site-page child" href="/posts/dc584b87/"><span> 📑 主题页面</span></a></li><li><a class="site-page child" href="/posts/4aa8abbe/"><span> 🛠 主題配置</span></a></li><li><a class="site-page child" href="/posts/ceeb73f/"><span> ⚔️ 标签外挂</span></a></li><li><a class="site-page child" href="/posts/98d20436/"><span> ❓ 主題问答</span></a></li><li><a class="site-page child" href="/posts/4073eda/"><span> ⚡️ 进阶教程</span></a></li><li><a class="site-page child" href="/posts/198a4240/"><span> ✨ 更新日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> 语言</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c"></i><span> 中文</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">Devkit GitHub 三端独立发布流程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 示例</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/21cfbf15/"><span> 🚀 快速开始</span></a></li><li><a class="site-page child" href="/posts/dc584b87/"><span> 📑 主题页面</span></a></li><li><a class="site-page child" href="/posts/4aa8abbe/"><span> 🛠 主題配置</span></a></li><li><a class="site-page child" href="/posts/ceeb73f/"><span> ⚔️ 标签外挂</span></a></li><li><a class="site-page child" href="/posts/98d20436/"><span> ❓ 主題问答</span></a></li><li><a class="site-page child" href="/posts/4073eda/"><span> ⚡️ 进阶教程</span></a></li><li><a class="site-page child" href="/posts/198a4240/"><span> ✨ 更新日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> 语言</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c"></i><span> 中文</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Devkit GitHub 三端独立发布流程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-26T23:35:00.000Z" title="发表于 2026-08-26 23:35:00">2026-08-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-26T23:35:00.000Z" title="更新于 2026-08-26 23:35:00">2026-08-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DevOps/">DevOps</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DevOps/GitHub-Actions/">GitHub Actions</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>Devkit 同时包含 WPF 客户端、Vue 3 Web 前端和 ASP.NET Core 服务端。三端放在一个 GitHub 仓库没有问题，而且以当前项目的跨端契约协作方式来看，继续使用单仓库更合适。需要拆开的不是代码仓库，而是三端的构建、版本、发布产物和部署权限。</p>
+<p>本文基于 Devkit 当前工程结构给出一套可逐步落地的 GitHub Actions 方案，并回答两个核心问题：三端是否应该共用仓库，以及如何在共用仓库的前提下独立发布。</p>
+<span id="more"></span>
+
+<h2 id="结论先行"><a href="#结论先行" class="headerlink" title="结论先行"></a>结论先行</h2><p>推荐采用下面的策略：</p>
+<ul>
+<li>保留一个仓库和一个受保护的长期分支 <code>main</code>。</li>
+<li>功能开发使用短生命周期分支，例如 <code>feature/client-*</code>、<code>feature/web-*</code> 和 <code>feature/server-*</code>。</li>
+<li><code>paths</code> 负责决定普通 CI 需要构建哪些目录，但不负责确定正式版本。</li>
+<li><code>client-v1.2.0</code>、<code>web-v1.5.0</code>、<code>server-v2.1.0</code> 这类组件标签负责触发独立正式发布。</li>
+<li>WPF 安装包发布到 GitHub Releases；Web 发布静态文件或 Web 容器；服务端发布 Docker 镜像并部署到目标环境。</li>
+<li>使用 GitHub Environments 隔离 <code>staging</code>、<code>production-web</code> 和 <code>production-server</code> 的密钥、审批与并发部署。</li>
+<li>API 契约变更必须额外验证 Web 和 WPF，不能只因为文件位于 <code>src/server</code> 就仅构建服务端。</li>
+</ul>
+<p>一句话概括：<strong>分支表示代码协作过程，目录表示变更范围，标签表示不可变版本，Environment 表示部署目标。</strong></p>
+<h2 id="Devkit-当前状态"><a href="#Devkit-当前状态" class="headerlink" title="Devkit 当前状态"></a>Devkit 当前状态</h2><p>仓库已经具备典型 Monorepo 的目录边界：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Devkit/</span><br><span class="line">├─ .github/workflows/</span><br><span class="line">├─ src/</span><br><span class="line">│  ├─ client/                # .NET 10、WPF、Prism、DryIoc</span><br><span class="line">│  ├─ web/                   # Vue 3、TypeScript、Vite</span><br><span class="line">│  └─ server/                # .NET 10、ASP.NET Core</span><br><span class="line">├─ build/                    # 本地构建输出，不提交</span><br><span class="line">├─ compose.yaml</span><br><span class="line">├─ global.json</span><br><span class="line">└─ NuGet.config</span><br></pre></td></tr></table></figure>
+
+<p>三个交付物当前的发布准备程度并不相同：</p>
+<table>
+<thead>
+<tr>
+<th>交付物</th>
+<th>已有能力</th>
+<th>当前缺口</th>
+<th>推荐发布物</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WPF 客户端</td>
+<td>已有 <code>Package-Devkit.ps1</code>、Inno Setup 和 <code>client-package.yml</code>；能够生成 EXE 安装包与 SHA-256</td>
+<td>Actions Artifact 只保留 14 天；尚未创建正式 GitHub Release；安装包未签名</td>
+<td>GitHub Release 中的安装器、校验文件和发布说明</td>
+</tr>
+<tr>
+<td>Vue 3 Web</td>
+<td>已有 Vite <code>build</code> 脚本和 <code>0.1.0</code> 版本</td>
+<td>没有依赖锁文件、CI、发布工作流和明确托管目标</td>
+<td>版本化静态压缩包，或部署到静态托管&#x2F;CDN，或 Web 容器</td>
+</tr>
+<tr>
+<td>ASP.NET Core 服务端</td>
+<td>已有 .NET 10 解决方案、测试、Dockerfile 和 Compose 服务</td>
+<td>没有镜像发布、环境部署和独立版本源</td>
+<td>GHCR 中的不可变 Docker 镜像，再部署到服务器或集群</td>
+</tr>
+</tbody></table>
+<p>项目已经把版本化 HTTP API 和 <code>/openapi/v1.json</code> 作为跨端契约，这正是保留单仓库的重要理由：一次接口变更可以在同一个 Pull Request 中同步修改服务端、Web 调用端、WPF 调用端和契约测试。</p>
+<h2 id="三端放在同一个仓库是否正确"><a href="#三端放在同一个仓库是否正确" class="headerlink" title="三端放在同一个仓库是否正确"></a>三端放在同一个仓库是否正确</h2><h3 id="当前阶段：正确"><a href="#当前阶段：正确" class="headerlink" title="当前阶段：正确"></a>当前阶段：正确</h3><p>Devkit 的三端属于同一个产品，接口契约紧密，技术团队需要一起评审跨端改动。单仓库在这些方面更有优势：</p>
+<ul>
+<li>一个 Pull Request 可以原子化完成服务端契约与两个调用端的同步修改。</li>
+<li>Issue、里程碑、代码评审和发布记录集中，不必跨仓库追踪同一需求。</li>
+<li>可以复用 <code>global.json</code>、工程规范、契约测试和 GitHub Actions 模板。</li>
+<li>三端虽然共仓，但目录已隔离，并没有直接共享跨语言业务源码。</li>
+</ul>
+<p>“放在同一个仓库”不等于“必须一起发布”。只要为每个目录建立独立工作流、版本和产物，三端完全可以拥有不同发布节奏。</p>
+<h3 id="什么时候再考虑拆仓"><a href="#什么时候再考虑拆仓" class="headerlink" title="什么时候再考虑拆仓"></a>什么时候再考虑拆仓</h3><p>满足下列多项条件时，再评估拆成三个仓库：</p>
+<ul>
+<li>三端由不同团队维护，权限、合规或代码可见性必须强隔离。</li>
+<li>三端已经成为可独立销售或被多个产品复用的产品线。</li>
+<li>仓库体积和 CI 时间明显影响日常开发，路径过滤与缓存也无法改善。</li>
+<li>客户端自动更新、Web 发布页和服务端镜像需要完全独立的 Release 门户与权限模型。</li>
+<li>跨端契约已通过独立的 OpenAPI 包、Schema Registry 或 SDK 仓库稳定治理。</li>
+</ul>
+<p>如果只是“想让三端分别上线”，没有必要为此拆仓。</p>
+<h2 id="为什么不建议用三条长期分支发布三端"><a href="#为什么不建议用三条长期分支发布三端" class="headerlink" title="为什么不建议用三条长期分支发布三端"></a>为什么不建议用三条长期分支发布三端</h2><p>不建议把 <code>dev_client</code>、<code>dev_web</code>、<code>dev_server</code> 当成三个长期发布分支。这样会让同一个产品形成三份逐渐漂移的历史：服务端契约可能只存在于一个分支，前端修复可能长期拿不到客户端分支中的公共配置，合并冲突也会持续累积。</p>
+<p>推荐的分支职责如下：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例</th>
+<th>生命周期</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主分支</td>
+<td><code>main</code></td>
+<td>长期</td>
+<td>始终保持可构建、可发布，设置保护规则</td>
+</tr>
+<tr>
+<td>功能分支</td>
+<td><code>feature/client-auto-update</code></td>
+<td>短期</td>
+<td>完成功能并通过 PR 合入 <code>main</code></td>
+</tr>
+<tr>
+<td>修复分支</td>
+<td><code>fix/web-login-timeout</code></td>
+<td>短期</td>
+<td>修复后通过 PR 合入 <code>main</code></td>
+</tr>
+<tr>
+<td>紧急修复</td>
+<td><code>hotfix/server-auth</code></td>
+<td>短期</td>
+<td>从生产版本对应提交创建，修复后回到 <code>main</code></td>
+</tr>
+<tr>
+<td>发布稳定分支</td>
+<td><code>release/2026.09</code></td>
+<td>可选、短期</td>
+<td>只有确实存在冻结与验收窗口时才使用</td>
+</tr>
+</tbody></table>
+<p>GitHub Release 本身基于 Git tag，它把某个确定提交标记为可交付版本。因此正式发布应使用组件标签，而不是依靠“某分支当前正好指向哪里”。GitHub 官方也将 Release 定义为基于标签的软件迭代，参见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">About releases</a>。</p>
+<h2 id="独立发布的触发规则"><a href="#独立发布的触发规则" class="headerlink" title="独立发布的触发规则"></a>独立发布的触发规则</h2><p>建议为三端采用独立版本号：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>标签格式</th>
+<th>示例</th>
+<th>触发结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>客户端</td>
+<td><code>client-v&lt;SemVer&gt;</code></td>
+<td><code>client-v0.2.0</code></td>
+<td>构建、测试、打包并创建客户端 GitHub Release</td>
+</tr>
+<tr>
+<td>Web</td>
+<td><code>web-v&lt;SemVer&gt;</code></td>
+<td><code>web-v0.4.1</code></td>
+<td>构建静态资源，并部署 Web 或发布 Web 镜像</td>
+</tr>
+<tr>
+<td>服务端</td>
+<td><code>server-v&lt;SemVer&gt;</code></td>
+<td><code>server-v1.3.0</code></td>
+<td>测试并发布服务端 Docker 镜像</td>
+</tr>
+<tr>
+<td>整套产品</td>
+<td><code>suite-v&lt;版本&gt;</code></td>
+<td><code>suite-v2026.09.0</code></td>
+<td>可选；需要三端一起形成验收基线时使用</td>
+</tr>
+</tbody></table>
+<p>普通提交和正式发布使用不同触发条件：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐触发</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Pull Request</td>
+<td><code>pull_request</code> + 变更检测</td>
+<td>构建受影响组件；契约变更额外构建三端</td>
+</tr>
+<tr>
+<td>合并到 <code>main</code></td>
+<td><code>push</code> + <code>paths</code></td>
+<td>生成 CI 产物或部署开发环境，不产生正式版本</td>
+</tr>
+<tr>
+<td>正式发布</td>
+<td><code>push.tags</code></td>
+<td>标签唯一确定版本和源代码提交</td>
+</tr>
+<tr>
+<td>补跑或测试</td>
+<td><code>workflow_dispatch</code></td>
+<td>允许手动构建，但默认不冒充正式 Release</td>
+</tr>
+</tbody></table>
+<p>GitHub 的 <code>branches</code> 与 <code>paths</code> 同时存在时，两个条件必须同时满足；标签和路径过滤也有各自的匹配规则，详见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax">Workflow syntax for GitHub Actions</a>。</p>
+<p>还要注意：如果把一个带 <code>paths</code> 的工作流设为 PR 必需检查，它在路径不匹配时可能保持 <code>Pending</code> 并阻塞合并。GitHub 在 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs">Skipping workflow runs</a> 中明确说明了这一行为。实践中可以设置一个始终运行的聚合 CI 检查，再由它判断哪些组件任务需要执行；不要简单地把三个可能被路径过滤掉的工作流全部设为必需检查。</p>
+<h2 id="推荐的发布链路"><a href="#推荐的发布链路" class="headerlink" title="推荐的发布链路"></a>推荐的发布链路</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">短期功能分支</span><br><span class="line">  → Pull Request</span><br><span class="line">  → 受影响组件 CI + 跨端契约检查</span><br><span class="line">  → 合入受保护的 main</span><br><span class="line">  → 创建某个组件标签</span><br><span class="line">  → 构建一次不可变产物</span><br><span class="line">  → 发布到 Release / GHCR / 静态托管</span><br><span class="line">  → staging 验证</span><br><span class="line">  → production 审批与部署</span><br><span class="line">  → 冒烟检查与回滚记录</span><br></pre></td></tr></table></figure>
+
+<p>关键原则是“构建一次，逐级晋级”。同一个版本不要在测试环境和生产环境各重新构建一遍，否则即使标签相同，实际字节也可能不同。</p>
+<h2 id="WPF-客户端发布"><a href="#WPF-客户端发布" class="headerlink" title="WPF 客户端发布"></a>WPF 客户端发布</h2><p>Devkit 已有的 <code>.github/workflows/client-package.yml</code> 适合做 <code>main</code> 分支的持续集成打包。它生成带 <code>ci.&lt;run_number&gt;</code> 后缀的预发布版本，并把安装器保存为短期 Artifact。正式发布可以新增 <code>client-release.yml</code>，只监听客户端标签并复用现有 PowerShell 打包入口：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Release</span> <span class="string">Devkit</span> <span class="string">Client</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;client-v*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">concurrency:</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">client-release-$&#123;&#123;</span> <span class="string">github.ref</span> <span class="string">&#125;&#125;</span></span><br><span class="line">  <span class="attr">cancel-in-progress:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">release:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">windows-2025</span></span><br><span class="line">    <span class="attr">timeout-minutes:</span> <span class="number">30</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v6</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/setup-dotnet@v5</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">global-json-file:</span> <span class="string">global.json</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">installer</span></span><br><span class="line">        <span class="attr">shell:</span> <span class="string">pwsh</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">RELEASE_TAG:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          $version = $env:RELEASE_TAG -replace &#x27;^client-v&#x27;, &#x27;&#x27;</span></span><br><span class="line"><span class="string">          if ($version -notmatch &#x27;^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$&#x27;) &#123;</span></span><br><span class="line"><span class="string">            throw &quot;Invalid client release tag: $env:RELEASE_TAG&quot;</span></span><br><span class="line"><span class="string">          &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">          <span class="string">./src/client/DevkitPrism/packaging/Package-Devkit.ps1</span> <span class="string">-Version</span> <span class="string">$version</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">GitHub</span> <span class="string">Release</span></span><br><span class="line">        <span class="attr">shell:</span> <span class="string">pwsh</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">GH_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.token</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">RELEASE_TAG:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          $assets = Get-ChildItem ./build/client/package -File |</span></span><br><span class="line"><span class="string">            Where-Object &#123; $_.Name -match &#x27;\.(exe|sha256)$&#x27; &#125; |</span></span><br><span class="line"><span class="string">            Select-Object -ExpandProperty FullName</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">          <span class="string">if</span> <span class="string">($assets.Count</span> <span class="string">-ne</span> <span class="number">2</span><span class="string">)</span> &#123;</span><br><span class="line">            <span class="string">throw</span> <span class="string">&quot;Expected installer and checksum, found $($assets.Count) files.&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="string">gh</span> <span class="string">release</span> <span class="string">create</span> <span class="string">$env:RELEASE_TAG</span> <span class="string">@assets</span> <span class="string">`</span></span><br><span class="line">            <span class="string">--verify-tag</span> <span class="string">`</span></span><br><span class="line">            <span class="string">--generate-notes</span> <span class="string">`</span></span><br><span class="line">            <span class="string">--title</span> <span class="string">&quot;Devkit Client $($env:RELEASE_TAG -replace &#x27;^client-v&#x27;, &#x27;&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>发布标签的操作示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">switch</span> main</span><br><span class="line">git pull <span class="literal">--ff-only</span></span><br><span class="line">git tag <span class="literal">-a</span> client<span class="literal">-v0</span>.<span class="number">2.0</span> <span class="literal">-m</span> <span class="string">&quot;Release Devkit Client 0.2.0&quot;</span></span><br><span class="line">git push origin client<span class="literal">-v0</span>.<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+
+<p>客户端还需要补齐两项生产能力：</p>
+<ol>
+<li>使用受保护的证书或云签名服务签名应用和安装器，并加入可信时间戳。证书和密码只能放在受保护的 Secret 或外部密钥服务，不能提交到仓库。</li>
+<li>自动更新不能直接依赖仓库全局的 <code>/releases/latest</code>，因为同一个 Monorepo 的 Web 或 Server Release 也可能成为“最新”。应按 <code>client-v*</code> 查询，或维护客户端专用更新清单。</li>
+</ol>
+<h2 id="Vue-3-Web-发布"><a href="#Vue-3-Web-发布" class="headerlink" title="Vue 3 Web 发布"></a>Vue 3 Web 发布</h2><h3 id="发布前先固定依赖"><a href="#发布前先固定依赖" class="headerlink" title="发布前先固定依赖"></a>发布前先固定依赖</h3><p><code>src/web</code> 当前没有 <code>package-lock.json</code>。CI 不能在每次发布时重新解析一组可能变化的依赖，应先在 Web 目录生成并提交锁文件，然后统一使用 <code>npm ci</code>。<code>actions/setup-node</code> 官方说明也建议提交包管理器锁文件，以提高安全性和可重复性，参见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/actions/setup-node#checking-in-lockfiles">setup-node</a>。</p>
+<p>建议同时在 <code>package.json</code> 或 <code>.nvmrc</code> 固定 Node.js 主版本，使本地和 Actions 使用同一运行时。</p>
+<h3 id="先生成不可变-Web-产物"><a href="#先生成不可变-Web-产物" class="headerlink" title="先生成不可变 Web 产物"></a>先生成不可变 Web 产物</h3><p>下面的工作流会在 <code>web-v*</code> 标签上构建并保存版本化静态包：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Release</span> <span class="string">Devkit</span> <span class="string">Web</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;web-v*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">read</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">defaults:</span></span><br><span class="line">      <span class="attr">run:</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">src/web</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v6</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/setup-node@v7</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;22&#x27;</span></span><br><span class="line">          <span class="attr">cache:</span> <span class="string">npm</span></span><br><span class="line">          <span class="attr">cache-dependency-path:</span> <span class="string">src/web/package-lock.json</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Package</span> <span class="string">static</span> <span class="string">files</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">RELEASE_TAG:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">tar</span> <span class="string">-czf</span> <span class="string">&quot;../../devkit-web-$&#123;RELEASE_TAG#web-v&#125;.tar.gz&quot;</span> <span class="string">-C</span> <span class="string">dist</span> <span class="string">.</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/upload-artifact@v7</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">devkit-web-$&#123;&#123;</span> <span class="string">github.ref_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">devkit-web-*.tar.gz</span></span><br><span class="line">          <span class="attr">if-no-files-found:</span> <span class="string">error</span></span><br></pre></td></tr></table></figure>
+
+<p>这段示例只完成可追溯构建，还没有假定生产平台。确定基础设施后，再增加一个引用 <code>production-web</code> Environment 的部署 Job，将同一压缩包发布到以下任一目标：</p>
+<ul>
+<li>Nginx 或 IIS 静态目录；</li>
+<li>对象存储加 CDN；</li>
+<li>支持静态站点的平台；</li>
+<li>增加 Web Dockerfile 后发布到 GHCR，再由容器平台部署。</li>
+</ul>
+<p>对于需要登录、调用后端并使用前端路由的业务系统，通常优先选择 Nginx&#x2F;IIS、对象存储&#x2F;CDN或 Web 容器。若使用 GitHub Pages，需要额外处理 Vite 的 <code>base</code>、Vue Router history 回退、API 跨域以及仓库可见性，不应仅因为“代码在 GitHub”就默认选择 Pages。</p>
+<p><code>VITE_API_BASE_URL</code> 会在构建时写入前端产物。为了做到真正的“同一产物从 staging 晋级到 production”，更推荐使用同域 <code>/api</code> 反向代理或运行时配置文件；否则不同环境需要分别构建，难以证明生产包与已验收包完全一致。</p>
+<h2 id="ASP-NET-Core-服务端发布"><a href="#ASP-NET-Core-服务端发布" class="headerlink" title="ASP.NET Core 服务端发布"></a>ASP.NET Core 服务端发布</h2><p>服务端已经有 Dockerfile，适合把镜像发布到 GitHub Container Registry。下面是核心工作流模板：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Release</span> <span class="string">Devkit</span> <span class="string">Server</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;server-v*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">read</span></span><br><span class="line">  <span class="attr">packages:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">test-and-push:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v6</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/setup-dotnet@v5</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">global-json-file:</span> <span class="string">global.json</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Test</span> <span class="string">server</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">dotnet</span> <span class="string">test</span> <span class="string">src/server/Devkit.Server.slnx</span> <span class="string">--configuration</span> <span class="string">Release</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Resolve</span> <span class="string">image</span> <span class="string">metadata</span></span><br><span class="line">        <span class="attr">shell:</span> <span class="string">bash</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">RELEASE_TAG:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          version=&quot;$&#123;RELEASE_TAG#server-v&#125;&quot;</span></span><br><span class="line"><span class="string">          owner=&quot;$&#123;GITHUB_REPOSITORY_OWNER,,&#125;&quot;</span></span><br><span class="line"><span class="string">          echo &quot;VERSION=$version&quot; &gt;&gt; &quot;$GITHUB_ENV&quot;</span></span><br><span class="line"><span class="string">          echo &quot;IMAGE=ghcr.io/$owner/devkit-server&quot; &gt;&gt; &quot;$GITHUB_ENV&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Log</span> <span class="string">in</span> <span class="string">to</span> <span class="string">GHCR</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">docker/login-action@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">registry:</span> <span class="string">ghcr.io</span></span><br><span class="line">          <span class="attr">username:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.actor</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">password:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">push</span> <span class="string">image</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">docker/build-push-action@v7</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">context:</span> <span class="string">.</span></span><br><span class="line">          <span class="attr">file:</span> <span class="string">src/server/src/Devkit.Server.Api/Dockerfile</span></span><br><span class="line">          <span class="attr">push:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; env.IMAGE &#125;&#125;:$&#123;&#123; env.VERSION &#125;&#125;</span></span><br><span class="line"><span class="string">            $&#123;&#123; env.IMAGE &#125;&#125;:sha-$&#123;&#123; github.sha &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>GitHub 官方的 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images">Publishing Docker images</a> 文档说明了使用 <code>GITHUB_TOKEN</code>、<code>packages: write</code> 和 GHCR 的基本方式。生产环境最好记录并部署镜像 digest，而不只依赖可移动标签；回滚时重新部署上一版本 digest 即可。</p>
+<p>为便于阅读，上面的示例使用了 Action 主版本标签。正式工作流应按 GitHub 的安全建议把第三方 Action 固定到完整 commit SHA，并使用 Dependabot 或 Renovate 审核后更新。</p>
+<p>镜像发布和服务部署是两个动作。上面的流程把镜像推入 GHCR，但真正部署仍取决于目标环境，例如 Docker Compose 主机、Kubernetes、Azure App Service 或其他容器平台。目标尚未确定时，不应在工作流中虚构 SSH 地址或服务器命令。</p>
+<h2 id="跨端契约发布顺序"><a href="#跨端契约发布顺序" class="headerlink" title="跨端契约发布顺序"></a>跨端契约发布顺序</h2><p>独立发布不代表忽略兼容性。Devkit 当前使用 <code>/api/v1</code>，推荐遵循下面的上线顺序：</p>
+<ol>
+<li>服务端先以向后兼容方式增加字段或新端点，并保留旧契约。</li>
+<li>Web 发布并切换到新能力。</li>
+<li>WPF 客户端发布；考虑到桌面用户不会同时升级，服务端必须继续兼容旧客户端。</li>
+<li>通过遥测或版本统计确认旧客户端已低于可接受比例后，再安排废弃旧接口。</li>
+<li>破坏性变更使用 <code>/api/v2</code>，不要直接改变 <code>/api/v1</code> 的含义。</li>
+</ol>
+<p>路径过滤也要反映这种依赖关系：</p>
+<table>
+<thead>
+<tr>
+<th>变更路径</th>
+<th>至少应执行的验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>src/client/**</code></td>
+<td>客户端构建与测试</td>
+</tr>
+<tr>
+<td><code>src/web/**</code></td>
+<td>Web 类型检查与构建</td>
+</tr>
+<tr>
+<td><code>src/server/**</code> 的内部实现</td>
+<td>服务端构建与测试</td>
+</tr>
+<tr>
+<td>OpenAPI、DTO、API 路径或认证契约</td>
+<td>服务端测试 + Web 构建&#x2F;契约测试 + WPF 构建&#x2F;契约测试</td>
+</tr>
+<tr>
+<td><code>global.json</code>、共享 CI 脚本、根配置</td>
+<td>根据影响范围构建两端 .NET 或全部三端</td>
+</tr>
+</tbody></table>
+<h2 id="GitHub-仓库设置建议"><a href="#GitHub-仓库设置建议" class="headerlink" title="GitHub 仓库设置建议"></a>GitHub 仓库设置建议</h2><h3 id="保护-main-和发布标签"><a href="#保护-main-和发布标签" class="headerlink" title="保护 main 和发布标签"></a>保护 <code>main</code> 和发布标签</h3><p>在 GitHub 的 <strong>Settings → Rules → Rulesets</strong> 中建议设置：</p>
+<ul>
+<li><code>main</code> 必须通过 Pull Request 合并；禁止强推和删除。</li>
+<li>要求聚合 CI 检查通过，至少一人评审；团队规模为一人时可先只要求 CI。</li>
+<li>对 <code>client-v*</code>、<code>web-v*</code> 和 <code>server-v*</code> 创建标签规则，限制删除、覆盖和非授权创建。</li>
+<li>自动删除已合并的短期功能分支，减少分支噪声。</li>
+</ul>
+<p>Rulesets 可以同时保护分支和标签，并限制更新或删除，参见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets">About rulesets</a>。</p>
+<h3 id="建立部署环境"><a href="#建立部署环境" class="headerlink" title="建立部署环境"></a>建立部署环境</h3><p>建议至少建立：</p>
+<ul>
+<li><code>staging-web</code></li>
+<li><code>production-web</code></li>
+<li><code>staging-server</code></li>
+<li><code>production-server</code></li>
+<li><code>production-client</code>（接入代码签名后使用）</li>
+</ul>
+<p>生产 Environment 应限制允许部署的标签、设置并发组，并在团队和 GitHub 套餐支持时要求审批。环境级 Secret 只有引用该 Environment 的 Job 才能访问；如果设置了审批，Secret 在审批通过前不会提供给 Job。具体能力和套餐限制见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments">Deployments and environments</a>。</p>
+<h2 id="当前项目应优先修正的问题"><a href="#当前项目应优先修正的问题" class="headerlink" title="当前项目应优先修正的问题"></a>当前项目应优先修正的问题</h2><p>按优先级建议处理以下事项：</p>
+<ol>
+<li><strong>恢复 NuGet TLS 校验。</strong> 当前 <code>NuGet.config</code> 对 <code>nuget.org</code> 配置了 <code>allowInsecureConnections</code> 和 <code>disableTLSCertificateValidation</code>。正式 CI 不应关闭包源 TLS 校验，应查明本机证书或代理问题后移除这两个设置。</li>
+<li><strong>提交 Web 锁文件。</strong> 没有 <code>package-lock.json</code> 就无法稳定使用 <code>npm ci</code>，同一标签在不同时间可能解析出不同依赖。</li>
+<li><strong>收紧 Docker 构建上下文。</strong> 当前服务端 Dockerfile 从仓库根目录 <code>COPY . .</code>，<code>.dockerignore</code> 又没有排除 <code>.env</code>、证书、<code>build/</code>、客户端和 Web 目录。本地未跟踪文件也可能被发送给 Docker daemon；应改为按需复制或扩大忽略规则。</li>
+<li><strong>给服务端增加唯一版本源。</strong> 可以在 <code>src/server/Directory.Build.props</code> 增加 <code>VersionPrefix</code>，发布时由 <code>server-v*</code> 覆盖，确保程序集、镜像和发布记录版本一致。</li>
+<li><strong>把客户端正式版从 Artifact 升级为 Release。</strong> Artifact 适合 CI 验证，GitHub Release 更适合长期下载、发布说明和版本追踪。GitHub 支持在 Release 中附加二进制资产，参见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository">Managing releases</a>。</li>
+<li><strong>补客户端签名和更新清单。</strong> 当前安装包未签名，正式分发前应解决 Windows 信任与升级通道。</li>
+<li><strong>确定 Web 与 Server 的真实生产平台。</strong> 在此之前先完成可重复构建和 GHCR&#x2F;Artifact 发布，不要把“产物已生成”误认为“生产已部署”。</li>
+</ol>
+<h2 id="分阶段落地计划"><a href="#分阶段落地计划" class="headerlink" title="分阶段落地计划"></a>分阶段落地计划</h2><h3 id="第一阶段：先让三个组件都可重复构建"><a href="#第一阶段：先让三个组件都可重复构建" class="headerlink" title="第一阶段：先让三个组件都可重复构建"></a>第一阶段：先让三个组件都可重复构建</h3><ul>
+<li>保留并优化现有客户端打包工作流。</li>
+<li>为 Web 提交锁文件，增加 build 工作流。</li>
+<li>为 Server 增加测试和 Docker build 工作流。</li>
+<li>建立始终运行的 PR 聚合检查，正确处理路径过滤。</li>
+</ul>
+<h3 id="第二阶段：建立独立正式版本"><a href="#第二阶段：建立独立正式版本" class="headerlink" title="第二阶段：建立独立正式版本"></a>第二阶段：建立独立正式版本</h3><ul>
+<li>新增 <code>client-v*</code>、<code>web-v*</code>、<code>server-v*</code> 标签规范。</li>
+<li>客户端标签创建 GitHub Release。</li>
+<li>Web 标签生成不可变静态包或容器镜像。</li>
+<li>Server 标签推送 GHCR，并记录镜像 digest。</li>
+</ul>
+<h3 id="第三阶段：接入环境部署与回滚"><a href="#第三阶段：接入环境部署与回滚" class="headerlink" title="第三阶段：接入环境部署与回滚"></a>第三阶段：接入环境部署与回滚</h3><ul>
+<li>选择 Web 静态托管或容器平台。</li>
+<li>选择 Server 的 Compose、Kubernetes 或托管平台。</li>
+<li>使用 GitHub Environments 管理生产审批与密钥。</li>
+<li>为 Web 保留上一版静态产物，为 Server 保留上一版 digest，为 Client 保留历史安装器。</li>
+<li>增加部署后健康检查、版本检查和失败自动停止，不自动删除上一版本。</li>
+</ul>
+<h2 id="最终建议"><a href="#最终建议" class="headerlink" title="最终建议"></a>最终建议</h2><p>Devkit 目前不需要拆成三个仓库。它真正需要的是在现有 Monorepo 中建立三条独立交付流水线：客户端以安装器和 GitHub Release 为中心，Web 以不可变静态产物或容器为中心，服务端以 GHCR 镜像和环境部署为中心。</p>
+<p>不要用三条长期分支区分三端。让所有经过评审的代码回到 <code>main</code>，用目录范围控制 CI，用组件前缀标签控制正式发布，用 GitHub Environments 控制部署目标和权限。这样既保留跨端契约在一个 PR 中同步演进的优势，也能让 WPF、Vue 3 和 ASP.NET Core 按各自节奏安全发布。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zrongqing.github.io">ZhangRongqing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zrongqing.github.io/posts/f4e463dd/">https://zrongqing.github.io/posts/f4e463dd/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zrongqing.github.io" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/GitHub-Actions/">GitHub Actions</a><a class="post-meta__tags" href="/tags/CI-CD/">CI/CD</a><a class="post-meta__tags" href="/tags/WPF/">WPF</a><a class="post-meta__tags" href="/tags/Vue-3/">Vue 3</a><a class="post-meta__tags" href="/tags/ASP-NET-Core/">ASP.NET Core</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/1aa774e3/" title="CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</div></div><div class="info-2"><div class="info-item-1">CC Switch 适合同时使用 Codex、Claude Code、Gemini CLI、OpenCode 等 AI 编程工具的人。它把散落在 JSON、TOML 和环境变量里的供应商配置集中到桌面界面中，帮助我们保存多套 API 地址、密钥和模型配置，再通过主界面或系统托盘快速切换。 本文重点讲清楚三个最容易混淆的问题：如何在 Codex 中切换 ChatGPT 官方账号与 DeepSeek，哪些情况需要 CC Switch 本地路由，以及它与 Clash、V2Ray、Surge 等 VPN&#x2F;代理工具是否会冲突。  本文核对时间为 2026 年 8 月 26 日。CC Switch 更新较快，旧版本的菜单名称和 DeepSeek 路由方式可能不同；涉及路由时，应以供应商卡片上的“需要路由”标记为准。    先理解 CC Switch 到底切换什么CC Switch 不是一个新的大模型，也不是 VPN。它主要做两件事：  保存并切换 AI 编程工具的本地配置； 在需要时启动本地 HTTP 路由，完成请求转发、格式转换、用量统计和故障转移。  普通切换的请求路径如下： ...</div></div></div></a><a class="pagination-related" href="/posts/cd3ab45e/" title="Prism.DryIoc使用Microsoft.Extensions.Hosting"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Prism.DryIoc使用Microsoft.Extensions.Hosting</div></div><div class="info-2"><div class="info-item-1">  引言Prism.DryIoc中试用微软的DI全家桶服务怎么做？      所使用的NUGET包 12345&lt;ItemGroup&gt;  &lt;PackageReference Include=&quot;DryIoc.Microsoft.DependencyInjection&quot; Version=&quot;6.2.0&quot; /&gt;  &lt;PackageReference Include=&quot;Microsoft.Extensions.DependencyInjection&quot; Version=&quot;10.0.8&quot; /&gt;  &lt;PackageReference Include=&quot;Prism.DryIoc&quot; Version=&quot;9.0.537&quot; /&gt;&lt;/ItemGroup&gt;  为什么要这么做？DroIoc速度快，可以动态注册；Hosting注册后，就不能够再动态注册了。就目前微软的生态来说，使用Hosting的配置比较多。所以可以在Prism这样桥接一...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ZhangRongqing</div><div class="author-info-description">这是一个博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA%E5%85%88%E8%A1%8C"><span class="toc-number">1.</span> <span class="toc-text">结论先行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Devkit-%E5%BD%93%E5%89%8D%E7%8A%B6%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">Devkit 当前状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%AB%AF%E6%94%BE%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE"><span class="toc-number">3.</span> <span class="toc-text">三端放在同一个仓库是否正确</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%AD%A3%E7%A1%AE"><span class="toc-number">3.1.</span> <span class="toc-text">当前阶段：正确</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%86%8D%E8%80%83%E8%99%91%E6%8B%86%E4%BB%93"><span class="toc-number">3.2.</span> <span class="toc-text">什么时候再考虑拆仓</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BB%BA%E8%AE%AE%E7%94%A8%E4%B8%89%E6%9D%A1%E9%95%BF%E6%9C%9F%E5%88%86%E6%94%AF%E5%8F%91%E5%B8%83%E4%B8%89%E7%AB%AF"><span class="toc-number">4.</span> <span class="toc-text">为什么不建议用三条长期分支发布三端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E7%AB%8B%E5%8F%91%E5%B8%83%E7%9A%84%E8%A7%A6%E5%8F%91%E8%A7%84%E5%88%99"><span class="toc-number">5.</span> <span class="toc-text">独立发布的触发规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E5%8F%91%E5%B8%83%E9%93%BE%E8%B7%AF"><span class="toc-number">6.</span> <span class="toc-text">推荐的发布链路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WPF-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E5%B8%83"><span class="toc-number">7.</span> <span class="toc-text">WPF 客户端发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-3-Web-%E5%8F%91%E5%B8%83"><span class="toc-number">8.</span> <span class="toc-text">Vue 3 Web 发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%89%8D%E5%85%88%E5%9B%BA%E5%AE%9A%E4%BE%9D%E8%B5%96"><span class="toc-number">8.1.</span> <span class="toc-text">发布前先固定依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E7%94%9F%E6%88%90%E4%B8%8D%E5%8F%AF%E5%8F%98-Web-%E4%BA%A7%E7%89%A9"><span class="toc-number">8.2.</span> <span class="toc-text">先生成不可变 Web 产物</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASP-NET-Core-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%91%E5%B8%83"><span class="toc-number">9.</span> <span class="toc-text">ASP.NET Core 服务端发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E7%AB%AF%E5%A5%91%E7%BA%A6%E5%8F%91%E5%B8%83%E9%A1%BA%E5%BA%8F"><span class="toc-number">10.</span> <span class="toc-text">跨端契约发布顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE%E5%BB%BA%E8%AE%AE"><span class="toc-number">11.</span> <span class="toc-text">GitHub 仓库设置建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4-main-%E5%92%8C%E5%8F%91%E5%B8%83%E6%A0%87%E7%AD%BE"><span class="toc-number">11.1.</span> <span class="toc-text">保护 main 和发布标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83"><span class="toc-number">11.2.</span> <span class="toc-text">建立部署环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E9%A1%B9%E7%9B%AE%E5%BA%94%E4%BC%98%E5%85%88%E4%BF%AE%E6%AD%A3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">12.</span> <span class="toc-text">当前项目应优先修正的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%98%B6%E6%AE%B5%E8%90%BD%E5%9C%B0%E8%AE%A1%E5%88%92"><span class="toc-number">13.</span> <span class="toc-text">分阶段落地计划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%85%88%E8%AE%A9%E4%B8%89%E4%B8%AA%E7%BB%84%E4%BB%B6%E9%83%BD%E5%8F%AF%E9%87%8D%E5%A4%8D%E6%9E%84%E5%BB%BA"><span class="toc-number">13.1.</span> <span class="toc-text">第一阶段：先让三个组件都可重复构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%BB%BA%E7%AB%8B%E7%8B%AC%E7%AB%8B%E6%AD%A3%E5%BC%8F%E7%89%88%E6%9C%AC"><span class="toc-number">13.2.</span> <span class="toc-text">第二阶段：建立独立正式版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%8E%A5%E5%85%A5%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%9B%9E%E6%BB%9A"><span class="toc-number">13.3.</span> <span class="toc-text">第三阶段：接入环境部署与回滚</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E5%BB%BA%E8%AE%AE"><span class="toc-number">14.</span> <span class="toc-text">最终建议</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3c2abc20/" title="Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南">Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南</a><time datetime="2026-09-10T22:15:20.000Z" title="发表于 2026-09-10 22:15:20">2026-09-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1aa774e3/" title="CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</a><time datetime="2026-08-26T23:55:29.000Z" title="发表于 2026-08-26 23:55:29">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/f4e463dd/" title="Devkit GitHub 三端独立发布流程">Devkit GitHub 三端独立发布流程</a><time datetime="2026-08-26T23:35:00.000Z" title="发表于 2026-08-26 23:35:00">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/cd3ab45e/" title="Prism.DryIoc使用Microsoft.Extensions.Hosting">Prism.DryIoc使用Microsoft.Extensions.Hosting</a><time datetime="2026-05-31T16:53:03.000Z" title="发表于 2026-05-31 16:53:03">2026-05-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7f4ee469/" title=".NET Confuse">.NET Confuse</a><time datetime="2025-10-13T11:07:30.000Z" title="发表于 2025-10-13 11:07:30">2025-10-13</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By ZhangRongqing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换 | Hexo</title><meta name="author" content="ZhangRongqing"><meta name="copyright" content="ZhangRongqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="介绍如何用 CC Switch 管理 Codex 等常用 AI 编程工具，在 ChatGPT 官方登录、OpenAI API、DeepSeek 及其他兼容供应商之间切换，并排查 VPN、系统代理、本地路由和环境变量冲突。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换">
+<meta property="og:url" content="https://zrongqing.github.io/posts/1aa774e3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="介绍如何用 CC Switch 管理 Codex 等常用 AI 编程工具，在 ChatGPT 官方登录、OpenAI API、DeepSeek 及其他兼容供应商之间切换，并排查 VPN、系统代理、本地路由和环境变量冲突。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zrongqing.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-08-26T23:55:29.000Z">
+<meta property="article:modified_time" content="2026-08-26T23:55:29.000Z">
+<meta property="article:author" content="ZhangRongqing">
+<meta property="article:tag" content="AI 编程">
+<meta property="article:tag" content="CC Switch">
+<meta property="article:tag" content="ChatGPT">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="DeepSeek">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zrongqing.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换",
+  "url": "https://zrongqing.github.io/posts/1aa774e3/",
+  "image": "https://zrongqing.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-08-26T23:55:29.000Z",
+  "dateModified": "2026-08-26T23:55:29.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ZhangRongqing",
+      "url": "https://zrongqing.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zrongqing.github.io/posts/1aa774e3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换',
+  isHighlightShrink: true,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 示例</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/21cfbf15/"><span> 🚀 快速开始</span></a></li><li><a class="site-page child" href="/posts/dc584b87/"><span> 📑 主题页面</span></a></li><li><a class="site-page child" href="/posts/4aa8abbe/"><span> 🛠 主題配置</span></a></li><li><a class="site-page child" href="/posts/ceeb73f/"><span> ⚔️ 标签外挂</span></a></li><li><a class="site-page child" href="/posts/98d20436/"><span> ❓ 主題问答</span></a></li><li><a class="site-page child" href="/posts/4073eda/"><span> ⚡️ 进阶教程</span></a></li><li><a class="site-page child" href="/posts/198a4240/"><span> ✨ 更新日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> 语言</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c"></i><span> 中文</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 示例</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/21cfbf15/"><span> 🚀 快速开始</span></a></li><li><a class="site-page child" href="/posts/dc584b87/"><span> 📑 主题页面</span></a></li><li><a class="site-page child" href="/posts/4aa8abbe/"><span> 🛠 主題配置</span></a></li><li><a class="site-page child" href="/posts/ceeb73f/"><span> ⚔️ 标签外挂</span></a></li><li><a class="site-page child" href="/posts/98d20436/"><span> ❓ 主題问答</span></a></li><li><a class="site-page child" href="/posts/4073eda/"><span> ⚡️ 进阶教程</span></a></li><li><a class="site-page child" href="/posts/198a4240/"><span> ✨ 更新日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> 语言</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c"></i><span> 中文</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-26T23:55:29.000Z" title="发表于 2026-08-26 23:55:29">2026-08-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-26T23:55:29.000Z" title="更新于 2026-08-26 23:55:29">2026-08-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/">AI</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/AI-%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">AI 编程工具</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>CC Switch 适合同时使用 Codex、Claude Code、Gemini CLI、OpenCode 等 AI 编程工具的人。它把散落在 JSON、TOML 和环境变量里的供应商配置集中到桌面界面中，帮助我们保存多套 API 地址、密钥和模型配置，再通过主界面或系统托盘快速切换。</p>
+<p>本文重点讲清楚三个最容易混淆的问题：如何在 Codex 中切换 ChatGPT 官方账号与 DeepSeek，哪些情况需要 CC Switch 本地路由，以及它与 Clash、V2Ray、Surge 等 VPN&#x2F;代理工具是否会冲突。</p>
+<blockquote>
+<p>本文核对时间为 2026 年 8 月 26 日。CC Switch 更新较快，旧版本的菜单名称和 DeepSeek 路由方式可能不同；涉及路由时，应以供应商卡片上的“需要路由”标记为准。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="先理解-CC-Switch-到底切换什么"><a href="#先理解-CC-Switch-到底切换什么" class="headerlink" title="先理解 CC Switch 到底切换什么"></a>先理解 CC Switch 到底切换什么</h2><p>CC Switch 不是一个新的大模型，也不是 VPN。它主要做两件事：</p>
+<ol>
+<li>保存并切换 AI 编程工具的本地配置；</li>
+<li>在需要时启动本地 HTTP 路由，完成请求转发、格式转换、用量统计和故障转移。</li>
+</ol>
+<p>普通切换的请求路径如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Codex / Claude Code / Gemini CLI</span><br><span class="line">              │</span><br><span class="line">              │ 读取 CC Switch 写入的本地配置</span><br><span class="line">              ▼</span><br><span class="line">       OpenAI / DeepSeek / 其他供应商</span><br></pre></td></tr></table></figure>
+
+<p>开启本地路由后的请求路径如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">AI 编程工具</span><br><span class="line">     │</span><br><span class="line">     │ http://127.0.0.1:15721</span><br><span class="line">     ▼</span><br><span class="line">CC Switch 本地路由</span><br><span class="line">     │</span><br><span class="line">     │ 可选：再经过 VPN/系统代理</span><br><span class="line">     ▼</span><br><span class="line">OpenAI / DeepSeek / 其他供应商</span><br></pre></td></tr></table></figure>
+
+<p>CC Switch 当前可管理 Claude Code、Claude Desktop、Codex、Gemini CLI、Grok Build、OpenCode、OpenClaw 和 Hermes。它也可以统一管理部分 MCP、Prompts 和 Skills。支持范围会随版本变化，安装前可以查看 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/README_ZH.md">CC Switch 官方中文说明</a>。</p>
+<h3 id="“ChatGPT”在本文中代表什么"><a href="#“ChatGPT”在本文中代表什么" class="headerlink" title="“ChatGPT”在本文中代表什么"></a>“ChatGPT”在本文中代表什么</h3><p>这里的“切换到 ChatGPT”通常是指：让 <strong>Codex 使用 ChatGPT 账号的官方订阅额度</strong>。它不等于修改 ChatGPT 网页版或独立客户端的模型线路。</p>
+<p>OpenAI 官方文档说明，Codex 本地客户端支持两种官方认证方式：</p>
+<ul>
+<li>使用 ChatGPT 账号登录，消耗对应套餐内的 Codex 额度；</li>
+<li>使用 OpenAI API Key，按 API 用量计费。</li>
+</ul>
+<p>两者的认证、计费和数据策略不同。不要把 ChatGPT 密码填入 CC Switch；ChatGPT 登录应通过 Codex 打开的官方浏览器授权页完成。详见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://learn.chatgpt.com/docs/auth">OpenAI 官方 Codex 认证文档</a>。</p>
+<h2 id="与常用-AI-桌面编程工具怎么配合"><a href="#与常用-AI-桌面编程工具怎么配合" class="headerlink" title="与常用 AI 桌面编程工具怎么配合"></a>与常用 AI 桌面编程工具怎么配合</h2><table>
+<thead>
+<tr>
+<th>使用场景</th>
+<th>CC Switch 能否直接切换</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Codex 桌面应用</td>
+<td>可以</td>
+<td>重点管理 <code>~/.codex/</code> 下的用户配置和认证</td>
+</tr>
+<tr>
+<td>Codex CLI</td>
+<td>可以</td>
+<td>普通切换后建议关闭并重新启动 Codex</td>
+</tr>
+<tr>
+<td>Codex IDE 扩展</td>
+<td>可以</td>
+<td>CLI 与 IDE 扩展共享配置层；必要时重载 IDE 窗口</td>
+</tr>
+<tr>
+<td>VS Code、Cursor、Windsurf、JetBrains 的集成终端</td>
+<td>可以</td>
+<td>在终端里运行受支持的 CLI 即可</td>
+</tr>
+<tr>
+<td>Cursor&#x2F;Windsurf 自带的聊天与补全</td>
+<td>通常不可以</td>
+<td>它们有独立的账号和供应商设置，不读取 CC Switch 的 Codex 配置</td>
+</tr>
+<tr>
+<td>Claude Code、Gemini CLI、OpenCode 等</td>
+<td>可以</td>
+<td>在 CC Switch 中切到对应应用页分别配置</td>
+</tr>
+</tbody></table>
+<p>Codex 的 CLI 与 IDE 扩展共享用户级 <code>~/.codex/config.toml</code>，但项目内的 <code>.codex/config.toml</code>、启动参数或 profile 可能具有更高优先级。若“切换成功但当前项目仍使用旧模型”，不要反复覆盖用户配置，应先检查项目级覆盖。配置优先级可参考 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://learn.chatgpt.com/docs/config-file/config-basic">OpenAI 官方 Codex 配置说明</a>。</p>
+<h2 id="安装与首次准备"><a href="#安装与首次准备" class="headerlink" title="安装与首次准备"></a>安装与首次准备</h2><h3 id="1-只从官方渠道下载"><a href="#1-只从官方渠道下载" class="headerlink" title="1. 只从官方渠道下载"></a>1. 只从官方渠道下载</h3><p>CC Switch 是免费开源软件。建议只使用以下入口：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch">CC Switch 官方仓库</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/releases">GitHub Releases 下载页</a></li>
+</ul>
+<p>Windows 通常优先选择 MSI 安装包；macOS 选择与 Intel 或 Apple Silicon 对应的 DMG；Linux 按发行版选择 AppImage、Deb 或 RPM。不要从要求付费、充值或提交账号密码的同名网站下载。</p>
+<h3 id="2-先安装并运行目标编程工具"><a href="#2-先安装并运行目标编程工具" class="headerlink" title="2. 先安装并运行目标编程工具"></a>2. 先安装并运行目标编程工具</h3><p>如果主要使用 Codex，应先安装 Codex CLI、Codex 桌面应用或 IDE 扩展，并至少启动一次。CC Switch 需要发现实际配置目录，才能导入和切换配置。</p>
+<p>已有 Codex 官方登录的用户，建议先确认官方模式能正常发起一次对话，再打开 CC Switch。这样首次导入时就有一份可恢复的官方配置。</p>
+<h3 id="3-确认备份位置并保护密钥"><a href="#3-确认备份位置并保护密钥" class="headerlink" title="3. 确认备份位置并保护密钥"></a>3. 确认备份位置并保护密钥</h3><p>CC Switch 会把供应商配置保存在 <code>~/.cc-switch/cc-switch.db</code>，并在 <code>~/.cc-switch/backups/</code> 保留自动备份。配置包含 API Key 等敏感信息，不要把数据库、<code>~/.codex/auth.json</code>、截图中的完整密钥或导出文件提交到 Git 仓库。</p>
+<h2 id="通用的供应商添加与切换方法"><a href="#通用的供应商添加与切换方法" class="headerlink" title="通用的供应商添加与切换方法"></a>通用的供应商添加与切换方法</h2><h3 id="添加供应商"><a href="#添加供应商" class="headerlink" title="添加供应商"></a>添加供应商</h3><ol>
+<li>在 CC Switch 顶部选择要管理的应用，例如 <strong>Codex</strong>；</li>
+<li>点击右上角的 <code>+</code>；</li>
+<li>优先从“预设”中选择 OpenAI 官方、DeepSeek、Kimi、智谱 GLM 等供应商；</li>
+<li>填写自己的 API Key，确认预设自动带出的端点和模型；</li>
+<li>点击“添加”。</li>
+</ol>
+<p>预设会处理容易写错的 Base URL、协议类型和模型目录。除非供应商明确给出了自定义接入文档，否则不要手动拼接 <code>/v1</code>、<code>/responses</code> 或 <code>/chat/completions</code>。</p>
+<h3 id="切换供应商"><a href="#切换供应商" class="headerlink" title="切换供应商"></a>切换供应商</h3><p>有两种常用方式：</p>
+<ul>
+<li>在主界面点击目标供应商卡片的“启用”；</li>
+<li>右键系统托盘中的 CC Switch 图标，在 Codex、Claude 或 Gemini 子菜单中选择供应商。</li>
+</ul>
+<p>普通配置切换后，Codex 通常需要完全退出并重新启动。开启 CC Switch 本地路由并接管 Codex 后，路由模式下切换供应商可以立即影响后续请求，但已开始的对话仍可能保留原模型上下文，重要任务建议新建会话验证。</p>
+<h2 id="重点一：在-Codex-中使用-ChatGPT-官方账号"><a href="#重点一：在-Codex-中使用-ChatGPT-官方账号" class="headerlink" title="重点一：在 Codex 中使用 ChatGPT 官方账号"></a>重点一：在 Codex 中使用 ChatGPT 官方账号</h2><h3 id="单个-ChatGPT-账号"><a href="#单个-ChatGPT-账号" class="headerlink" title="单个 ChatGPT 账号"></a>单个 ChatGPT 账号</h3><p>推荐顺序如下：</p>
+<ol>
+<li>先在 Codex 中完成一次“使用 ChatGPT 登录”；</li>
+<li>回到 CC Switch 的 Codex 页面，导入当前配置或添加“OpenAI 官方”供应商；</li>
+<li>启用该官方供应商；</li>
+<li>重启 Codex，确认账号和模型选择器正常。</li>
+</ol>
+<p>如果以前使用的是 API Key，需要先在 Codex 中退出旧认证，再按界面提示选择 ChatGPT 登录。ChatGPT 套餐是否包含 Codex、额度多少和支持哪些模型会变化，应以账号页面与 OpenAI 官方文档为准。</p>
+<h3 id="多个-ChatGPT-Codex-官方账号"><a href="#多个-ChatGPT-Codex-官方账号" class="headerlink" title="多个 ChatGPT&#x2F;Codex 官方账号"></a>多个 ChatGPT&#x2F;Codex 官方账号</h3><p>较新的 CC Switch 提供认证中心，可以保存多个已经完成 OAuth 授权的 ChatGPT&#x2F;Codex 账号，并把不同账号绑定到不同的“OpenAI 官方”供应商卡片。切换卡片后重启 Codex，即可让 CLI 和桌面应用使用对应账号。</p>
+<p>如果安装的版本还没有认证中心，可以为每个账号建立单独的官方供应商卡片，切到对应卡片后按提示执行 Codex 的退出&#x2F;登录流程。不要复制浏览器 Cookie 或手工粘贴 OAuth Token。</p>
+<h3 id="同时保留官方登录与第三方模型"><a href="#同时保留官方登录与第三方模型" class="headerlink" title="同时保留官方登录与第三方模型"></a>同时保留官方登录与第三方模型</h3><p>经常在 ChatGPT 官方订阅和 DeepSeek 之间往返时，建议打开：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设置 → 通用 → Codex 应用增强 → 非接管切换时保留官方登录</span><br></pre></td></tr></table></figure>
+
+<p>旧版本的文字可能是“切换第三方时保留官方登录”。开启后，官方登录缓存继续保留在 <code>~/.codex/auth.json</code>，第三方供应商密钥由 <code>config.toml</code> 中对应 provider 的认证配置承载。路由接管期间，较新版本会始终保留官方登录。</p>
+<p>这项设置能减少“从 DeepSeek 切回官方后出现 401，只能重新登录”的情况，也有助于 Codex 桌面应用继续识别官方身份。它不代表第三方模型可以消耗 ChatGPT 订阅额度：使用 DeepSeek 时仍由 DeepSeek Key 计费。</p>
+<h2 id="重点二：在-Codex-中使用-DeepSeek"><a href="#重点二：在-Codex-中使用-DeepSeek" class="headerlink" title="重点二：在 Codex 中使用 DeepSeek"></a>重点二：在 Codex 中使用 DeepSeek</h2><h3 id="新建-DeepSeek-供应商"><a href="#新建-DeepSeek-供应商" class="headerlink" title="新建 DeepSeek 供应商"></a>新建 DeepSeek 供应商</h3><ol>
+<li>打开 CC Switch 的 <strong>Codex</strong> 页面；</li>
+<li>点击 <code>+</code>，选择 <strong>DeepSeek</strong> 预设；</li>
+<li>填入在 DeepSeek 平台申请的 API Key；</li>
+<li>保留预设给出的端点、协议和模型目录；</li>
+<li>添加后点击“启用”；</li>
+<li>按 CC Switch 的提示重启 Codex。</li>
+</ol>
+<p>DeepSeek 官方 OpenAI 兼容 Base URL 是 <code>https://api.deepseek.com</code>。模型名和支持的协议会更新，优先使用 CC Switch 预设自动获取的列表，不要照抄过期教程中的固定模型 ID。可参考 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://api-docs.deepseek.com/">DeepSeek API 官方文档</a>。</p>
+<h3 id="DeepSeek-是否需要开启本地路由"><a href="#DeepSeek-是否需要开启本地路由" class="headerlink" title="DeepSeek 是否需要开启本地路由"></a>DeepSeek 是否需要开启本地路由</h3><p>这是版本差异最大的地方：</p>
+<ul>
+<li>CC Switch 3.19.1 之后<strong>新建</strong>的 DeepSeek 预设已使用原生 Responses 接口，通常可以直连，不需要本地路由；</li>
+<li>升级前已经保存的 DeepSeek 卡片不会自动改变协议，如果仍显示“需要路由”，可以编辑供应商，把“上游格式”改为原生 Responses，或继续使用本地路由；</li>
+<li>某个特定 DeepSeek 模型若只开放 Chat Completions 接入，仍要选择 Chat 格式并开启 Codex 路由；</li>
+<li>Kimi、GLM、MiniMax 或部分聚合服务若只提供 Chat Completions，也要通过 CC Switch 将 Codex 的 Responses 请求转换为 Chat 请求。</li>
+</ul>
+<p>不要只根据供应商名称判断。<strong>卡片有“需要路由”徽标，就按提示开启路由；没有徽标，优先直连。</strong> 具体版本差异见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/docs/guides/codex-deepseek-routing-guide-zh.md">CC Switch 官方 Codex + DeepSeek 路由指南</a>。</p>
+<h3 id="开启-Codex-本地路由"><a href="#开启-Codex-本地路由" class="headerlink" title="开启 Codex 本地路由"></a>开启 Codex 本地路由</h3><p>界面名称可能随版本调整，常见路径是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设置 → 路由服务（或高级 → 路由服务）</span><br></pre></td></tr></table></figure>
+
+<p>然后完成两步：</p>
+<ol>
+<li>启动 CC Switch 本地路由服务，默认监听 <code>127.0.0.1:15721</code>；</li>
+<li>在“应用路由”中开启 <strong>Codex</strong>。</li>
+</ol>
+<p>接管后，Codex 的 API 地址会暂时指向类似 <code>http://127.0.0.1:15721/v1</code> 的本地地址，CC Switch 再把请求转换并转发到当前供应商。关闭 Codex 路由或停止服务时，CC Switch 会尝试恢复接管前的配置，因此不要在路由运行期间同时用其他配置工具覆盖 <code>~/.codex/config.toml</code>。</p>
+<h2 id="重点三：ChatGPT、DeepSeek-和其他供应商怎样来回切换"><a href="#重点三：ChatGPT、DeepSeek-和其他供应商怎样来回切换" class="headerlink" title="重点三：ChatGPT、DeepSeek 和其他供应商怎样来回切换"></a>重点三：ChatGPT、DeepSeek 和其他供应商怎样来回切换</h2><p>可以按下面的表格操作：</p>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>CC Switch 操作</th>
+<th>是否需要本地路由</th>
+<th>切换后动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ChatGPT 官方订阅</td>
+<td>启用绑定相应账号的“OpenAI 官方”卡片</td>
+<td>通常不需要</td>
+<td>重启 Codex，检查账号和模型</td>
+</tr>
+<tr>
+<td>OpenAI API Key</td>
+<td>启用保存了 API Key 的 OpenAI 供应商</td>
+<td>通常不需要</td>
+<td>重启 Codex，确认按 API 计费</td>
+</tr>
+<tr>
+<td>DeepSeek 原生 Responses</td>
+<td>启用新版 DeepSeek 预设</td>
+<td>通常不需要</td>
+<td>重启 Codex，检查模型目录</td>
+</tr>
+<tr>
+<td>DeepSeek Chat 或旧配置</td>
+<td>启用 DeepSeek 卡片</td>
+<td>需要</td>
+<td>启动路由并开启 Codex 接管</td>
+</tr>
+<tr>
+<td>仅支持 Chat Completions 的其他供应商</td>
+<td>启用对应预设</td>
+<td>通常需要</td>
+<td>查看“需要路由”徽标并按提示操作</td>
+</tr>
+</tbody></table>
+<p>日常使用可以保留三张卡片：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Codex</span><br><span class="line">├── ChatGPT 官方账号</span><br><span class="line">├── OpenAI API Key（可选）</span><br><span class="line">└── DeepSeek API</span><br></pre></td></tr></table></figure>
+
+<p>写代码前从托盘选择目标供应商，随后重启 Codex 或新建会话。切回官方时若遇到 401，先确认当前卡片确实是“OpenAI 官方”，再检查官方登录是否仍在；不要先删除 <code>auth.json</code>。</p>
+<h2 id="CC-Switch-会和-VPN-工具冲突吗"><a href="#CC-Switch-会和-VPN-工具冲突吗" class="headerlink" title="CC Switch 会和 VPN 工具冲突吗"></a>CC Switch 会和 VPN 工具冲突吗</h2><h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><strong>通常不会天然冲突，但两者都涉及代理时可能形成错误的代理链。</strong></p>
+<p>VPN&#x2F;代理工具负责“这台电脑怎样访问外网”；CC Switch 本地路由负责“AI 请求交给哪个供应商、是否转换协议”。只要保留本地回环地址、上游代理地址和 CC Switch 监听端口之间的边界，两者可以同时工作。</p>
+<h3 id="推荐方案-A：VPN-使用-TUN-模式"><a href="#推荐方案-A：VPN-使用-TUN-模式" class="headerlink" title="推荐方案 A：VPN 使用 TUN 模式"></a>推荐方案 A：VPN 使用 TUN 模式</h3><p>TUN 模式通常会透明接管出站流量。此时建议：</p>
+<ol>
+<li>CC Switch 的“全局代理”先留空；</li>
+<li>在 VPN 规则中让 <code>127.0.0.1</code> 和 <code>localhost</code> 直连，不要把本机回环流量送进远端代理；</li>
+<li>让 OpenAI、DeepSeek 等真实上游流量按 VPN 规则访问；</li>
+<li>开启 CC Switch 路由后测试一次实际请求。</li>
+</ol>
+<p>如果 TUN 的 Fake IP、DNS 劫持或 HTTPS 检查导致 TLS 错误，应在 VPN 中为目标 API 和登录域名增加合理规则。不要通过关闭证书校验来“解决”问题。</p>
+<h3 id="推荐方案-B：VPN-开启系统代理"><a href="#推荐方案-B：VPN-开启系统代理" class="headerlink" title="推荐方案 B：VPN 开启系统代理"></a>推荐方案 B：VPN 开启系统代理</h3><p>如果 VPN 在本机提供 HTTP 或 SOCKS5 端口，例如 <code>127.0.0.1:7890</code> 或 <code>127.0.0.1:1080</code>，可以在 CC Switch 的“全局代理”里显式填写：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socks5://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
+
+<p>保存前使用 CC Switch 的“测试连接”。显式配置通常比依赖应用启动时自动读取系统代理更容易排查。</p>
+<blockquote>
+<p>不要把 CC Switch 的全局上游代理填写成它自己的本地路由地址 <code>127.0.0.1:15721</code>，否则可能产生代理自环。<code>15721</code> 是 AI 工具进入 CC Switch 的入口，不是 CC Switch 访问外网的出口。</p>
+</blockquote>
+<h3 id="推荐方案-C：能够直连供应商"><a href="#推荐方案-C：能够直连供应商" class="headerlink" title="推荐方案 C：能够直连供应商"></a>推荐方案 C：能够直连供应商</h3><p>如果当前网络可以直接访问目标供应商，把 CC Switch 全局代理留空即可。界面当前提示留空表示直连；部分旧版本或底层网络库可能仍继承启动时的系统代理状态，因此从“开代理”切到“完全直连”后若持续出现 502，可保存一次空代理设置并重启 CC Switch。</p>
+<h3 id="VPN-开关后出现-502-或超时"><a href="#VPN-开关后出现-502-或超时" class="headerlink" title="VPN 开关后出现 502 或超时"></a>VPN 开关后出现 502 或超时</h3><p>某些版本会在启动时建立并缓存 HTTP 客户端。若 CC Switch 启动时 VPN 的系统代理是 <code>127.0.0.1:7890</code>，随后直接退出 VPN，CC Switch 可能仍尝试访问已经关闭的端口。</p>
+<p>按以下顺序恢复：</p>
+<ol>
+<li>确认 VPN 的本地代理端口是否仍在监听；</li>
+<li>在 CC Switch 中清空或改正“全局代理”，再次测试连接；</li>
+<li>停止并重新启动 CC Switch 路由；</li>
+<li>完全退出并重新打开 CC Switch；</li>
+<li>最后再重启 Codex。</li>
+</ol>
+<p>新版 CC Switch 已支持显式全局代理的运行时更新，但“系统代理在应用外部突然变化”仍可能因操作系统、VPN 模式和版本不同而表现不一致。</p>
+<h2 id="Windows-上的快速排查命令"><a href="#Windows-上的快速排查命令" class="headerlink" title="Windows 上的快速排查命令"></a>Windows 上的快速排查命令</h2><p>以下命令都可以在 PowerShell 中运行，不会显示 API Key 的值。</p>
+<h3 id="检查-CC-Switch-默认端口"><a href="#检查-CC-Switch-默认端口" class="headerlink" title="检查 CC Switch 默认端口"></a>检查 CC Switch 默认端口</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Test-NetConnection</span> <span class="number">127.0</span>.<span class="number">0.1</span> <span class="literal">-Port</span> <span class="number">15721</span></span><br><span class="line"><span class="built_in">Get-NetTCPConnection</span> <span class="literal">-LocalPort</span> <span class="number">15721</span> <span class="literal">-State</span> Listen <span class="literal">-ErrorAction</span> SilentlyContinue</span><br></pre></td></tr></table></figure>
+
+<p>如果卡片显示“需要路由”，但 15721 没有监听，应先启动 CC Switch 路由服务。若端口被其他程序占用，可以停止路由后在设置里更换端口，再重新开启接管。</p>
+<h3 id="检查上游网络"><a href="#检查上游网络" class="headerlink" title="检查上游网络"></a>检查上游网络</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Resolve-DnsName</span> api.deepseek.com</span><br><span class="line"><span class="built_in">Test-NetConnection</span> api.deepseek.com <span class="literal">-Port</span> <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>DNS 或 443 端口不通属于网络&#x2F;VPN&#x2F;防火墙问题，不是供应商切换本身的问题。</p>
+<h3 id="检查会覆盖配置的环境变量"><a href="#检查会覆盖配置的环境变量" class="headerlink" title="检查会覆盖配置的环境变量"></a>检查会覆盖配置的环境变量</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-ChildItem</span> Env: |</span><br><span class="line">  <span class="built_in">Where-Object</span> Name <span class="operator">-Match</span> <span class="string">&#x27;^(OPENAI|ANTHROPIC|GEMINI|HTTP|HTTPS|ALL|NO)_&#x27;</span> |</span><br><span class="line">  <span class="built_in">Select-Object</span> <span class="literal">-ExpandProperty</span> Name</span><br></pre></td></tr></table></figure>
+
+<p>重点检查旧的 <code>OPENAI_API_KEY</code>、<code>ANTHROPIC_BASE_URL</code>、<code>HTTP_PROXY</code>、<code>HTTPS_PROXY</code> 和 <code>ALL_PROXY</code>。不要直接删除不理解的系统变量；先记录来源，确认它是否属于旧教程、公司网络或当前 VPN，再在对应的系统设置、Shell 配置或启动脚本中修改。</p>
+<p>CC Switch 自带环境变量冲突检测。环境变量通常可能覆盖应用配置，导致“界面显示 DeepSeek，实际请求却发往旧地址”。</p>
+<h2 id="按错误现象定位问题"><a href="#按错误现象定位问题" class="headerlink" title="按错误现象定位问题"></a>按错误现象定位问题</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>更可能的原因</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Connection refused 127.0.0.1:15721</code></td>
+<td>Codex 仍指向本地路由，但路由服务未运行</td>
+<td>启动路由，或从 CC Switch 正常关闭接管以恢复配置</td>
+</tr>
+<tr>
+<td>CC Switch 返回 502&#x2F;503</td>
+<td>上游代理关闭、VPN 规则错误、供应商超时或协议不匹配</td>
+<td>测试全局代理和上游 443；检查供应商是否要求路由</td>
+</tr>
+<tr>
+<td>401&#x2F;403</td>
+<td>API Key、官方登录或账号权限问题</td>
+<td>确认当前卡片和认证方式；重新执行官方登录或更新 Key</td>
+</tr>
+<tr>
+<td>404 <code>/responses</code></td>
+<td>上游不支持 Responses，或 Base URL 拼错</td>
+<td>改用正确预设；必要时选 Chat 格式并开启路由转换</td>
+</tr>
+<tr>
+<td>切换后仍是旧供应商</td>
+<td>Codex 未重启、项目配置&#x2F;profile&#x2F;启动参数覆盖用户配置</td>
+<td>重启 Codex，检查 <code>.codex/config.toml</code> 和启动参数</td>
+</tr>
+<tr>
+<td>VPN 关闭后持续失败</td>
+<td>CC Switch 或 Codex 仍保留旧代理连接&#x2F;配置</td>
+<td>清空全局代理，依次重启路由、CC Switch 和 Codex</td>
+</tr>
+<tr>
+<td>浏览器登录后无法回到 Codex</td>
+<td>OAuth 回调的 localhost 被 VPN、浏览器或防火墙拦截</td>
+<td>放行本机回环，暂时改用兼容的代理模式后重试</td>
+</tr>
+</tbody></table>
+<h2 id="怎样确认切换真的生效"><a href="#怎样确认切换真的生效" class="headerlink" title="怎样确认切换真的生效"></a>怎样确认切换真的生效</h2><p>不要只问模型“你是谁”。第三方模型可能沿用 Codex 的系统提示词，自报身份并不可靠。</p>
+<p>更稳妥的验证方法是：</p>
+<ol>
+<li>检查 CC Switch 中目标供应商卡片的启用状态；</li>
+<li>普通切换后重启 Codex，路由切换后新建会话；</li>
+<li>在 Codex 的账号、模型或状态界面查看当前配置；</li>
+<li>开启本地路由时，在 CC Switch 请求日志中核对供应商、模型、状态码和延迟；</li>
+<li>到对应供应商控制台查看是否产生了新的用量记录。</li>
+</ol>
+<p>验证时使用简单、低成本的请求即可。不要为了确认模型而提交包含公司源码、客户数据或密钥的测试内容。</p>
+<h2 id="安全与费用注意事项"><a href="#安全与费用注意事项" class="headerlink" title="安全与费用注意事项"></a>安全与费用注意事项</h2><ul>
+<li>每个供应商有独立的价格、速率限制、日志保留和数据条款；切换供应商也等于切换数据处理方。</li>
+<li>ChatGPT 订阅额度不能自动抵扣 DeepSeek 或第三方 API 费用。</li>
+<li>不要在聊天、截图、Git 提交和公共 Issue 中暴露 API Key、OAuth Token 或 <code>auth.json</code>。</li>
+<li>中转服务能看到经它转发的内容。涉及私有代码时，应先确认组织政策和供应商的数据条款。</li>
+<li>VPN 的 HTTPS 解密、公司代理证书和零信任网关可能检查请求。遇到证书错误时应正确部署受信任 CA 或调整网络策略，而不是关闭 TLS 校验。</li>
+</ul>
+<h2 id="恢复到官方-Codex-的稳妥步骤"><a href="#恢复到官方-Codex-的稳妥步骤" class="headerlink" title="恢复到官方 Codex 的稳妥步骤"></a>恢复到官方 Codex 的稳妥步骤</h2><p>如果配置已经混乱，可以按下面的顺序回到官方模式：</p>
+<ol>
+<li>在 CC Switch 中停止 Codex 路由接管；</li>
+<li>启用“OpenAI 官方”供应商；</li>
+<li>完全退出并重新启动 Codex；</li>
+<li>若官方登录确实失效，再通过 Codex 的官方登录流程重新登录 ChatGPT；</li>
+<li>仍有问题时，先查看 <code>~/.cc-switch/backups/</code>，不要直接删除整个 <code>~/.codex/</code>。</li>
+</ol>
+<p>CC Switch 以自动备份和原子写入降低配置损坏风险，但它不能替代对密钥和账号的正常管理。关闭路由或切换供应商时，尽量从 CC Switch 界面完成，不要同时使用多个配置切换器。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CC Switch 最适合把 <strong>Codex 作为统一编程客户端，再按任务在 ChatGPT 官方订阅、OpenAI API、DeepSeek 和其他供应商之间切换</strong>：</p>
+<ul>
+<li>ChatGPT 官方模式优先走 Codex 官方登录；</li>
+<li>DeepSeek 新预设优先用原生 Responses 直连；</li>
+<li>只有 Chat Completions 的供应商通过 CC Switch 本地路由转换；</li>
+<li>VPN 负责外网链路，CC Switch 负责供应商与协议，两者通过正确的回环和上游代理规则配合；</li>
+<li>出现异常时先区分 401、404、502 和本地端口错误，再检查环境变量和项目级 Codex 配置。</li>
+</ul>
+<p>把“官方账号”“API Key”“本地路由”“VPN 出口”分成四层理解，切换和排障就会清晰很多。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/README_ZH.md">CC Switch 官方中文说明</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/docs/user-manual/zh/1-getting-started/1.4-quickstart.md">CC Switch 用户手册：快速上手</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/docs/user-manual/zh/2-providers/2.1-add.md">CC Switch 用户手册：添加供应商</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/docs/user-manual/zh/4-proxy/4.1-service.md">CC Switch 用户手册：本地路由服务</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/farion1231/cc-switch/blob/main/docs/guides/codex-deepseek-routing-guide-zh.md">CC Switch：Codex + DeepSeek 路由指南</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learn.chatgpt.com/docs/auth">OpenAI 官方文档：Codex 认证</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learn.chatgpt.com/docs/config-file/config-basic">OpenAI 官方文档：Codex 配置基础</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://api-docs.deepseek.com/">DeepSeek API 官方文档</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zrongqing.github.io">ZhangRongqing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zrongqing.github.io/posts/1aa774e3/">https://zrongqing.github.io/posts/1aa774e3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zrongqing.github.io" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CC-Switch/">CC Switch</a><a class="post-meta__tags" href="/tags/Codex/">Codex</a><a class="post-meta__tags" href="/tags/DeepSeek/">DeepSeek</a><a class="post-meta__tags" href="/tags/ChatGPT/">ChatGPT</a><a class="post-meta__tags" href="/tags/AI-%E7%BC%96%E7%A8%8B/">AI 编程</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3c2abc20/" title="Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南</div></div><div class="info-2"><div class="info-item-1">Codex 里的“模式”并不只代表一个开关。工作模式决定先规划还是直接执行，运行环境决定代码在哪里修改，模型决定能力、速度和成本的取舍，推理强度则决定一次任务投入多少计算资源。 对大多数开发任务，一套实用的起点是：默认模式 + Terra Medium。小改动可以直接在 Local 中完成；正式功能或并行任务优先放进 Worktree；只有真正困难的任务才需要 Astra、Max 或 Ultra。  本文核对时间为 2026 年 9 月 10 日。Codex 的模型名称、账号可用选项和界面位置可能随套餐与灰度发布变化，应以当前客户端和 OpenAI 官方文档为准。    先区分四个维度选择 Codex 配置时，可以依次回答四个问题：  需求是否足够明确，可以立即实施？ 改动应直接进入当前目录，还是需要隔离或远程运行？ 任务需要多强的模型能力？ 模型需要投入多少推理资源，是否值得拆分为并行子任务？  这四项相互独立。例如，Plan 模式可以搭配 Terra，也可以搭配 Astra；Worktree 是代码隔离方式，并不意味着模型会自动变强；Ultra 代表并行代理工作流，也不等于单...</div></div></div></a><a class="pagination-related" href="/posts/f4e463dd/" title="Devkit GitHub 三端独立发布流程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Devkit GitHub 三端独立发布流程</div></div><div class="info-2"><div class="info-item-1">Devkit 同时包含 WPF 客户端、Vue 3 Web 前端和 ASP.NET Core 服务端。三端放在一个 GitHub 仓库没有问题，而且以当前项目的跨端契约协作方式来看，继续使用单仓库更合适。需要拆开的不是代码仓库，而是三端的构建、版本、发布产物和部署权限。 本文基于 Devkit 当前工程结构给出一套可逐步落地的 GitHub Actions 方案，并回答两个核心问题：三端是否应该共用仓库，以及如何在共用仓库的前提下独立发布。   结论先行推荐采用下面的策略：  保留一个仓库和一个受保护的长期分支 main。 功能开发使用短生命周期分支，例如 feature/client-*、feature/web-* 和 feature/server-*。 paths 负责决定普通 CI 需要构建哪些目录，但不负责确定正式版本。 client-v1.2.0、web-v1.5.0、server-v2.1.0 这类组件标签负责触发独立正式发布。 WPF 安装包发布到 GitHub Releases；Web 发布静态文件或 Web 容器；服务端发布 Docker 镜像并部署到目标环境。...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/3c2abc20/" title="Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-10</div><div class="info-item-2">Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南</div></div><div class="info-2"><div class="info-item-1">Codex 里的“模式”并不只代表一个开关。工作模式决定先规划还是直接执行，运行环境决定代码在哪里修改，模型决定能力、速度和成本的取舍，推理强度则决定一次任务投入多少计算资源。 对大多数开发任务，一套实用的起点是：默认模式 + Terra Medium。小改动可以直接在 Local 中完成；正式功能或并行任务优先放进 Worktree；只有真正困难的任务才需要 Astra、Max 或 Ultra。  本文核对时间为 2026 年 9 月 10 日。Codex 的模型名称、账号可用选项和界面位置可能随套餐与灰度发布变化，应以当前客户端和 OpenAI 官方文档为准。    先区分四个维度选择 Codex 配置时，可以依次回答四个问题：  需求是否足够明确，可以立即实施？ 改动应直接进入当前目录，还是需要隔离或远程运行？ 任务需要多强的模型能力？ 模型需要投入多少推理资源，是否值得拆分为并行子任务？  这四项相互独立。例如，Plan 模式可以搭配 Terra，也可以搭配 Astra；Worktree 是代码隔离方式，并不意味着模型会自动变强；Ultra 代表并行代理工作流，也不等于单...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ZhangRongqing</div><div class="author-info-description">这是一个博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E7%90%86%E8%A7%A3-CC-Switch-%E5%88%B0%E5%BA%95%E5%88%87%E6%8D%A2%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">先理解 CC Switch 到底切换什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9CChatGPT%E2%80%9D%E5%9C%A8%E6%9C%AC%E6%96%87%E4%B8%AD%E4%BB%A3%E8%A1%A8%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">“ChatGPT”在本文中代表什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%B8%B8%E7%94%A8-AI-%E6%A1%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E6%80%8E%E4%B9%88%E9%85%8D%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text">与常用 AI 桌面编程工具怎么配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E9%A6%96%E6%AC%A1%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">安装与首次准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8F%AA%E4%BB%8E%E5%AE%98%E6%96%B9%E6%B8%A0%E9%81%93%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.1.</span> <span class="toc-text">1. 只从官方渠道下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%88%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E7%9B%AE%E6%A0%87%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7"><span class="toc-number">3.2.</span> <span class="toc-text">2. 先安装并运行目标编程工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A1%AE%E8%AE%A4%E5%A4%87%E4%BB%BD%E4%BD%8D%E7%BD%AE%E5%B9%B6%E4%BF%9D%E6%8A%A4%E5%AF%86%E9%92%A5"><span class="toc-number">3.3.</span> <span class="toc-text">3. 确认备份位置并保护密钥</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E7%9A%84%E4%BE%9B%E5%BA%94%E5%95%86%E6%B7%BB%E5%8A%A0%E4%B8%8E%E5%88%87%E6%8D%A2%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">通用的供应商添加与切换方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9B%E5%BA%94%E5%95%86"><span class="toc-number">4.1.</span> <span class="toc-text">添加供应商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E4%BE%9B%E5%BA%94%E5%95%86"><span class="toc-number">4.2.</span> <span class="toc-text">切换供应商</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E4%B8%80%EF%BC%9A%E5%9C%A8-Codex-%E4%B8%AD%E4%BD%BF%E7%94%A8-ChatGPT-%E5%AE%98%E6%96%B9%E8%B4%A6%E5%8F%B7"><span class="toc-number">5.</span> <span class="toc-text">重点一：在 Codex 中使用 ChatGPT 官方账号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%B8%AA-ChatGPT-%E8%B4%A6%E5%8F%B7"><span class="toc-number">5.1.</span> <span class="toc-text">单个 ChatGPT 账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA-ChatGPT-Codex-%E5%AE%98%E6%96%B9%E8%B4%A6%E5%8F%B7"><span class="toc-number">5.2.</span> <span class="toc-text">多个 ChatGPT&#x2F;Codex 官方账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%97%B6%E4%BF%9D%E7%95%99%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E4%B8%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9E%8B"><span class="toc-number">5.3.</span> <span class="toc-text">同时保留官方登录与第三方模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E4%BA%8C%EF%BC%9A%E5%9C%A8-Codex-%E4%B8%AD%E4%BD%BF%E7%94%A8-DeepSeek"><span class="toc-number">6.</span> <span class="toc-text">重点二：在 Codex 中使用 DeepSeek</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA-DeepSeek-%E4%BE%9B%E5%BA%94%E5%95%86"><span class="toc-number">6.1.</span> <span class="toc-text">新建 DeepSeek 供应商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepSeek-%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E8%B7%AF%E7%94%B1"><span class="toc-number">6.2.</span> <span class="toc-text">DeepSeek 是否需要开启本地路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-Codex-%E6%9C%AC%E5%9C%B0%E8%B7%AF%E7%94%B1"><span class="toc-number">6.3.</span> <span class="toc-text">开启 Codex 本地路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E4%B8%89%EF%BC%9AChatGPT%E3%80%81DeepSeek-%E5%92%8C%E5%85%B6%E4%BB%96%E4%BE%9B%E5%BA%94%E5%95%86%E6%80%8E%E6%A0%B7%E6%9D%A5%E5%9B%9E%E5%88%87%E6%8D%A2"><span class="toc-number">7.</span> <span class="toc-text">重点三：ChatGPT、DeepSeek 和其他供应商怎样来回切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CC-Switch-%E4%BC%9A%E5%92%8C-VPN-%E5%B7%A5%E5%85%B7%E5%86%B2%E7%AA%81%E5%90%97"><span class="toc-number">8.</span> <span class="toc-text">CC Switch 会和 VPN 工具冲突吗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">8.1.</span> <span class="toc-text">结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88-A%EF%BC%9AVPN-%E4%BD%BF%E7%94%A8-TUN-%E6%A8%A1%E5%BC%8F"><span class="toc-number">8.2.</span> <span class="toc-text">推荐方案 A：VPN 使用 TUN 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88-B%EF%BC%9AVPN-%E5%BC%80%E5%90%AF%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86"><span class="toc-number">8.3.</span> <span class="toc-text">推荐方案 B：VPN 开启系统代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88-C%EF%BC%9A%E8%83%BD%E5%A4%9F%E7%9B%B4%E8%BF%9E%E4%BE%9B%E5%BA%94%E5%95%86"><span class="toc-number">8.4.</span> <span class="toc-text">推荐方案 C：能够直连供应商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VPN-%E5%BC%80%E5%85%B3%E5%90%8E%E5%87%BA%E7%8E%B0-502-%E6%88%96%E8%B6%85%E6%97%B6"><span class="toc-number">8.5.</span> <span class="toc-text">VPN 开关后出现 502 或超时</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-%E4%B8%8A%E7%9A%84%E5%BF%AB%E9%80%9F%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4"><span class="toc-number">9.</span> <span class="toc-text">Windows 上的快速排查命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5-CC-Switch-%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3"><span class="toc-number">9.1.</span> <span class="toc-text">检查 CC Switch 默认端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E4%B8%8A%E6%B8%B8%E7%BD%91%E7%BB%9C"><span class="toc-number">9.2.</span> <span class="toc-text">检查上游网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E4%BC%9A%E8%A6%86%E7%9B%96%E9%85%8D%E7%BD%AE%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">9.3.</span> <span class="toc-text">检查会覆盖配置的环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E9%94%99%E8%AF%AF%E7%8E%B0%E8%B1%A1%E5%AE%9A%E4%BD%8D%E9%97%AE%E9%A2%98"><span class="toc-number">10.</span> <span class="toc-text">按错误现象定位问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E7%A1%AE%E8%AE%A4%E5%88%87%E6%8D%A2%E7%9C%9F%E7%9A%84%E7%94%9F%E6%95%88"><span class="toc-number">11.</span> <span class="toc-text">怎样确认切换真的生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%B8%8E%E8%B4%B9%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">12.</span> <span class="toc-text">安全与费用注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%88%B0%E5%AE%98%E6%96%B9-Codex-%E7%9A%84%E7%A8%B3%E5%A6%A5%E6%AD%A5%E9%AA%A4"><span class="toc-number">13.</span> <span class="toc-text">恢复到官方 Codex 的稳妥步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">14.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">15.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3c2abc20/" title="Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南">Codex 模式怎么选：工作模式、运行环境、模型与推理强度指南</a><time datetime="2026-09-10T22:15:20.000Z" title="发表于 2026-09-10 22:15:20">2026-09-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1aa774e3/" title="CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换">CC Switch 使用教程：在 Codex、DeepSeek 与 ChatGPT 之间快速切换</a><time datetime="2026-08-26T23:55:29.000Z" title="发表于 2026-08-26 23:55:29">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/f4e463dd/" title="Devkit GitHub 三端独立发布流程">Devkit GitHub 三端独立发布流程</a><time datetime="2026-08-26T23:35:00.000Z" title="发表于 2026-08-26 23:35:00">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/cd3ab45e/" title="Prism.DryIoc使用Microsoft.Extensions.Hosting">Prism.DryIoc使用Microsoft.Extensions.Hosting</a><time datetime="2026-05-31T16:53:03.000Z" title="发表于 2026-05-31 16:53:03">2026-05-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7f4ee469/" title=".NET Confuse">.NET Confuse</a><time datetime="2025-10-13T11:07:30.000Z" title="发表于 2025-10-13 11:07:30">2025-10-13</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By ZhangRongqing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
