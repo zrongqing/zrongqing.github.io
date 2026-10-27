@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hexo 主题与扩展开发"
+  short_description: "开发当前博客的 Hexo 模板、辅助函数、渲染扩展与页面交互"
+  default_prompt: "使用 $hexo-theme-development 为当前博客实现所需扩展，并验证受影响页面。"

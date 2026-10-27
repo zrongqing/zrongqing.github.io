@@ -1,15 +1,22 @@
 ---
-name: maintain-hexo-blog
-description: 维护本仓库的 Hexo 与 Butterfly 静态博客。用于新建、续写、校对或重构 Markdown 文章，配置 Front Matter 和文章图片，排查本地预览或构建问题，准备或执行 GitHub Pages 发布，以及解释本仓库常用 Hexo 命令和字段；不用于 NuGet 包发布，也不用于直接维护 Hexo 生成的 HTML。
+name: hexo-blog-local
+description: 维护本仓库的 Hexo 与 Butterfly 静态博客。用于新建、续写、校对或重构 Markdown 文章，将笔记或会话整理成文章，配置 Front Matter 和文章图片，排查本地预览或构建问题，准备或执行 GitHub Pages 发布，以及解释本仓库常用 Hexo 命令和字段；不用于 NuGet 包发布，也不用于直接维护 Hexo 生成的 HTML。
 ---
 
-# 维护 Hexo 博客
+# Hexo 本地博客维护
+
+## 与专项技能配合
+
+- 本技能负责文章、资源、构建与发布流程。
+- 配置 Butterfly 导航、侧栏、特殊页面或标签外挂时，配合 [hexo-butterfly](../hexo-butterfly/SKILL.md)。
+- 编写模板、Helper、Filter、Generator 或自定义交互时，配合 [hexo-theme-development](../hexo-theme-development/SKILL.md)。
+- 将想法、笔记或会话提炼成文章时，按需读取 [references/article-writing.md](references/article-writing.md)。
 
 ## 先确认仓库状态
 
 1. 读取根目录 `AGENTS.md`、`package.json`、`_config.yml`、`_config.butterfly.yml` 和相关 scaffold。
 2. 运行 `git status --short --branch`，保留用户已有修改和未跟踪文件。
-3. 涉及命令、Front Matter、图片、构建或发布时，先完整读取 [references/hexo-blog-guide.md](references/hexo-blog-guide.md)。
+3. 涉及命令、Front Matter、图片、构建或发布时，读取 [references/hexo-blog-guide.md](references/hexo-blog-guide.md) 的相关章节，区分通用做法、仓库现状和待改进项。
 4. 使用项目内安装的 Hexo：优先运行 `npm run ...` 或 `npx hexo ...`，不要依赖全局 `hexo`。
 
 ## 编写或维护文章
@@ -17,11 +24,11 @@ description: 维护本仓库的 Hexo 与 Butterfly 静态博客。用于新建�
 1. 新文章优先用 `npx hexo new post "<标题>"` 创建，随后编辑 `source/_posts/` 中的 Markdown；草稿使用 `npx hexo new draft`。
 2. 延续仓库以中文为主的技术博客风格：先说明问题和适用环境，再给步骤、代码、验证结果与结论。
 3. 不编造版本、命令输出、测试结果、引用或故障原因。信息不足时明确标记待确认内容。
-4. 写有效 YAML Front Matter。新文章至少设置 `title`、`date`、`tags`、`categories`、`keywords`、`description`，并保留仓库模板中的阅读选项。
+4. 写有效 YAML Front Matter。按 scaffold 保留 `title`、`date` 与阅读选项，补充实际适用的分类、标签、描述和关键词；不要把主题或 SEO 字段说成 Hexo 的必填项。
 5. 让新文章的 `abbrlink` 保持为空，由现有插件在构建时生成；已有文章的非空 `abbrlink` 视为稳定公开 URL，除非用户明确要求迁移，否则不要修改。
 6. 使用 `<!-- more -->` 控制首页摘要；使用带语言名的 fenced code block；命令示例注明运行目录和平台差异。
 7. 编辑已发布文章时更新 `updated`。不要改变原 `date`，除非用户明确要求重设发布日期。
-8. 文章图片沿用仓库现有的 `source/_posts/<文章文件名>/` 目录和相对链接写法；移动或重命名文章时同步检查图片路径。
+8. 既有文章图片保留已验证的路径；新增图片优先采用指南中的公共资源目录方案。启用文章资源目录属于配置变更，先评估历史链接；移动或重命名文章时同步检查图片路径。
 
 ## 校验
 
